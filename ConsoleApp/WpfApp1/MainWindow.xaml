@@ -1,0 +1,33 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <TextBox x:Name="DefaultText" HorizontalAlignment="Left" Height="84" Margin="348,100,0,0" TextWrapping="Wrap" Text="How are you!" VerticalAlignment="Top" Width="124" RenderTransformOrigin="0.509,2.304" MouseEnter="DefaultText_MouseEnter" MouseLeave="DefaultText_MouseLeave" Background="#FFCD9E9E">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="41.51"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="348,240,0,0" TextWrapping="Wrap" Text="I am your first Box!" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.013,0.526" Background="#FF79E068">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-22.401"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <DatePicker x:Name="calendar" HorizontalAlignment="Left" Margin="151,115,0,0" VerticalAlignment="Top" Height="26" Width="120" Background="#FFB04747"/>
+
+    </Grid>
+</Window>
