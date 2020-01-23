@@ -9,6 +9,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Week 1", "Week 1", "{079C9D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFirstWPFApp", "WpfApp1\MyFirstWPFApp.csproj", "{CA2188A6-E3C7-4A61-A283-1E122F587161}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Week 2", "Week 2", "{52630D0E-0091-4712-8BEA-0A9AD7A88D06}"
+	ProjectSection(SolutionItems) = preProject
+		Week 2\IntegerSet_Partial.cs = Week 2\IntegerSet_Partial.cs
+		Week 2\Program.cs = Week 2\Program.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
