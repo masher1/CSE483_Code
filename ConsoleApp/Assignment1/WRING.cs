@@ -49,20 +49,7 @@ namespace MyIntegerSet
         public IntegerSet(bool[] val)
             : this()
         {
-            int counter = 0;
-            foreach (bool temp in val)
-            {
-                try
-                {
-                    _set[counter] = val[counter];
-                }
-                catch
-                {
-                    Console.WriteLine("Size is over the limit of 100!");
-                    break;
-                }
-                counter++;
-            }
+			//TODO Write this constructor
         }
 
 
@@ -73,20 +60,19 @@ namespace MyIntegerSet
         /// <returns>The resultant set which contains the union of the two sets.</returns>
         public IntegerSet Union(IntegerSet otherSet)
         {
-            IntegerSet result = new IntegerSet();
-            int counter = 0;
-            foreach (bool value in otherSet.Set)
+            // TODO Write the Union Method
+            // Must use foreach
+            foreach (int val in otherSet)
             {
-                if (value)
-                    result.Set[counter] = true;
-                else if (Set[counter])
-                    result.Set[counter] = true;
-                counter++;
-            }
+                if (val.Equals(val)) 
+                {  
 
+                }   
+            }
+            
             // Must use exception handling
 
-            return result;
+            return new IntegerSet();
         }
 
         /// <summary>
@@ -96,20 +82,11 @@ namespace MyIntegerSet
         /// <returns>The resultant set which contains the intersection of the two sets.</returns>
         public IntegerSet Intersection(IntegerSet otherSet)
         {
-            IntegerSet result = new IntegerSet();
-            checked
-            {
-                int counter = 0;
-                foreach (bool value in otherSet.Set)
-                {
-                    if (value && Set[counter])
-                        result.Set[counter] = true;
-                    counter++;
-                }
-            }
-            // Must use exception handling
-
-            return result;
+			// TODO Write the Intersection Method
+			// Must use foreach
+			// Must use exception handling
+			
+			return new IntegerSet();
         }
 
         /// <summary>
