@@ -77,8 +77,13 @@ namespace simpleCalc
 
         private void equals_Click(object sender, RoutedEventArgs e)
         {
-            _mymodel.CalculateResult();
-
+            try{
+                _mymodel.CalculateResult();
+            }
+            catch(System.Exception)
+            {
+                _mymodel.ErrorPrint();
+            }
         }
     }
 }

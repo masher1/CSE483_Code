@@ -11,7 +11,6 @@ namespace Week_4
     class Model : INotifyPropertyChanged
     {
         private string _topBoxText;
-
         public string TopBoxText
         {
             get { return _topBoxText; }

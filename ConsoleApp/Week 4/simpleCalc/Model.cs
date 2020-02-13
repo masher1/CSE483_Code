@@ -15,15 +15,34 @@ namespace simpleCalc
 
         public float answer;
 
-        private float _resultBox;
+        private String _Status_Block;
+        public String Status_Block
+        {
+            get { return _Status_Block; }
+            set
+            {
+                _Status_Block = value;
+                OnPropertyChanged("Status_Block");
+            }
+        }
 
+        private float _resultBox;
         public float resultBox
         {
             get { return _resultBox; }
             set
             {
-                _resultBox = value;
-                OnPropertyChanged("resultBox");
+                try
+                {
+                    _resultBox = value;
+                    Status_Block = "SIKE222";
+                    OnPropertyChanged("resultBox");
+                }
+                catch(Exception e)
+                {
+                    ErrorPrint();
+                }
+                
             }
         }
 
@@ -33,8 +52,17 @@ namespace simpleCalc
             get { return _firstNumBox; }
             set
             {
-                _firstNumBox = value;
-                OnPropertyChanged("firstNumBox");
+                try
+                {
+                    _firstNumBox = value;
+                    Status_Block = "SIKEEEEE";
+                    OnPropertyChanged("firstNumBox");
+                }
+                catch(Exception e)
+                {
+                    ErrorPrint();
+                }
+               
             }
         }
         
@@ -44,8 +72,17 @@ namespace simpleCalc
             get { return _secondNumBox; }
             set
             {
-                _secondNumBox = value;
-                OnPropertyChanged("secondNumBox");
+                try
+                {
+                    _secondNumBox = value;
+                    Status_Block = "SIKE2222";
+                    OnPropertyChanged("secondNumBox");
+                }
+                catch(Exception e)
+                {
+                    ErrorPrint();
+                }
+                
             }
         }
 
@@ -65,37 +102,42 @@ namespace simpleCalc
             
         }
 
-      public void CalculateResult()
+        public void ErrorPrint()
         {
+            //Status_Block = Brushes.Red;
+            Status_Block = "Please enter a valid number!";
+        }
 
+        public void CalculateResult()
+        {
             resultBox = answer;
+            Status_Block = "Success";
         }
 
         public void SetOperation(MY_OPERATION op)
         {
-            switch (op)
-            {
-                case MY_OPERATION.ADD:
-                    answer = firstNumBox + secondNumBox;
-                    operationNumBox = "ADD";
-                    break;
-                case MY_OPERATION.SUBTRACT:
-                    answer = firstNumBox - secondNumBox;
-                    operationNumBox = "SUBTRACT";
-                    break;
-                case MY_OPERATION.MULTIPLY:
-                    answer = firstNumBox * secondNumBox;
-                    operationNumBox = "MULTIPLY";
-                    break;
-                case MY_OPERATION.DIVIDE:
-                    answer = firstNumBox / secondNumBox;
-                    operationNumBox = "DIVIDE";
-
-                    break;
-                default:
-                    answer = 0;
-                    break;
-            }
+                switch (op)
+                {
+                    case MY_OPERATION.ADD:
+                        answer = firstNumBox + secondNumBox;
+                        operationNumBox = "ADD";
+                        break;
+                    case MY_OPERATION.SUBTRACT:
+                        answer = firstNumBox - secondNumBox;
+                        operationNumBox = "SUBTRACT";
+                        break;
+                    case MY_OPERATION.MULTIPLY:
+                        answer = firstNumBox * secondNumBox;
+                        operationNumBox = "MULTIPLY";
+                        break;
+                    case MY_OPERATION.DIVIDE:
+                        answer = firstNumBox / secondNumBox;
+                        operationNumBox = "DIVIDE";
+                        break;
+                    default:
+                        answer = 0;
+                        break;
+                }          
         }
 
         #region Data Binding Stuff
