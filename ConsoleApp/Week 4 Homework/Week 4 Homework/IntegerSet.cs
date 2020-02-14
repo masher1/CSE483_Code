@@ -16,7 +16,7 @@ namespace MyIntegerSet
 {
     public class IntegerSet
     {
-        public const uint _size = 65535;
+        public const uint _size = 100;
         /// <summary>
         /// The private set of bools which make up the integer set.
         /// </summary>
