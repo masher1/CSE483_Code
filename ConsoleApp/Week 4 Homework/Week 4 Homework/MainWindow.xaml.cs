@@ -20,9 +20,7 @@ namespace Week_4_Homework
     /// </summary>
     public partial class MainWindow : Window
     {
-
         Model _mymodel;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -30,10 +28,11 @@ namespace Week_4_Homework
             this.DataContext = _mymodel;
         }
 
+       
         private void Update_button_Click(object sender, RoutedEventArgs e)
         {
             //used to do the actual calculations
-
+            _mymodel.Combine();
         }
     }
 }
