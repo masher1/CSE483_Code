@@ -15,6 +15,8 @@ namespace Week_4_Homework
         IntegerSet _set1 = new IntegerSet();
         IntegerSet _set2 = new IntegerSet();
 
+        string[] errorMessage = new string[] { "", "" };
+
         private string _Set1Input;
         public string Set1Input
         {
@@ -66,7 +68,28 @@ namespace Week_4_Homework
             set
             {
                 _ErrorText = value;
+                try
+                {
+                    if (ErrorText.Contains("SUCCESS"))
+                        ErrorTextBackground = Brushes.Green;
+                    else if (errorMessage[0] == "" && errorMessage[1] == "")
+                        ErrorTextBackground = Brushes.White;
+                    else
+                        ErrorTextBackground = Brushes.Red;
+                }
+                catch {}
                 OnPropertyChanged("ErrorText");
+            }
+        }
+
+        private Brush _ErrorTextBackground;
+        public Brush ErrorTextBackground
+        {
+            get { return _ErrorTextBackground; }
+            set
+            {
+                _ErrorTextBackground = value;
+                OnPropertyChanged("ErrorTextBackground");
             }
         }
 
@@ -83,16 +106,22 @@ namespace Week_4_Homework
         {
             _set1.Clear();
             _set2.Clear();
+            ErrorText = "";
+            UnionText = "";
+            IntersectionText = "";
+            errorMessage[0] = "";
+            errorMessage[1] = "";
 
             try
             {
                 string[] array1 = Set1Input.Split(',');
                 string[] array2 = Set2Input.Split(',');
-                
+
                 int[] arrayUno = new int[array1.Length];
                 int[] arrayDos = new int[array2.Length];
 
-                for (int i = 0; i < arrayUno.Length; i++) { 
+                for (int i = 0; i < arrayUno.Length; i++)
+                {
                     arrayUno[i] = Int32.Parse(array1[i]);
                 }
                 for (int i = 0; i < arrayDos.Length; i++)
@@ -100,26 +129,22 @@ namespace Week_4_Homework
                     arrayDos[i] = Int32.Parse(array2[i]);
                 }
 
-                ErrorText = "";
-                UnionText = "";
-                IntersectionText = "";
-
                 foreach (uint i in arrayUno)
                 {
                     try
                     {
-                       /* if (i == null)
+                        if (i > 100)
                         {
-                            throw new System.ArgumentException("Parameter cannot be null", "Set 1");
-                            return;
-                        }*/
+                            throw new System.ArgumentException("value can't be greater than 100", "Set 1");
+                            break;
+                        }
                         //uint j = uint.Parse(i);
                         _set1.InsertElement(i);
                         ErrorText = "";
                     }
                     catch (Exception e)
                     {
-                        ErrorText = e.Message;
+                        errorMessage[0] = e.Message;
                         UnionText = "";
                         IntersectionText = "";
                     }
@@ -128,18 +153,18 @@ namespace Week_4_Homework
                 {
                     try
                     {
-                        /*if (i == "")
+                        if (i > 100)
                         {
-                            throw new System.ArgumentException("Parameter cannot be null", "Set 2");
-                            return;
-                        }*/
+                            throw new System.ArgumentException("value can't be greater than 100", "Set 2");
+                            break;
+                        }
                         //uint j = uint.Parse(i);
                         _set2.InsertElement(i);
                         ErrorText = "";
                     }
                     catch (Exception e)
                     {
-                        ErrorText += "\n" + e.Message;
+                        errorMessage[1] = "\n" + e.Message;
                         UnionText = "";
                         IntersectionText = "";
                     }
@@ -147,18 +172,25 @@ namespace Week_4_Homework
             }
             catch (Exception e)
             {
-                ErrorText = e.Message;
+                errorMessage[0] = e.Message;
                 UnionText = "";
                 IntersectionText = "";
             }
 
-            if (ErrorText == "") {
+            if (errorMessage[0] == "" && errorMessage[1] == "")
+            {
                 IntersectionText = "";
                 UnionText = "";
+                ErrorText = "";
                 IntegerSet intersectSet = _set1.Intersection(_set2);
                 IntegerSet unionSet = _set1.Union(_set2);
                 UnionText = unionSet.ToString();
                 IntersectionText = intersectSet.ToString();
+                ErrorText = "SUCCESS!";
+            }
+            else
+            {
+                ErrorText = errorMessage[0] + "\n" + errorMessage[1];
             }
         }
 

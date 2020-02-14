@@ -26,6 +26,7 @@ namespace Week_4_Homework
             InitializeComponent();
             _mymodel = new Model();
             this.DataContext = _mymodel;
+            //this.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/myapp;component/Images/icon.png")));
         }
 
        
