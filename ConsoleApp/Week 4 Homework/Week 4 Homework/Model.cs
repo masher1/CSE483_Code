@@ -111,8 +111,8 @@ namespace Week_4_Homework
             _set1.Clear();
             _set2.Clear();
             ErrorText = "";
-            UnionText = "";
-            IntersectionText = "";
+            UnionText = "---";
+            IntersectionText = "---";
             errorMessage[0] = "";
             errorMessage[1] = "";
 
@@ -149,8 +149,8 @@ namespace Week_4_Homework
                     catch (Exception e)
                     {
                         errorMessage[0] = e.Message;
-                        UnionText = "";
-                        IntersectionText = "";
+                        UnionText = "---";
+                        IntersectionText = "---";
                     }
                 }
                 foreach (uint i in arrayDos)
@@ -169,22 +169,22 @@ namespace Week_4_Homework
                     catch (Exception e)
                     {
                         errorMessage[1] = "\n" + e.Message;
-                        UnionText = "";
-                        IntersectionText = "";
+                        UnionText = "---";
+                        IntersectionText = "---";
                     }
                 }
             }
             catch (Exception e)
             {
                 errorMessage[0] = e.Message;
-                UnionText = "";
-                IntersectionText = "";
+                UnionText = "---";
+                IntersectionText = "---";
             }
 
             if (errorMessage[0] == "" && errorMessage[1] == "")
             {
-                IntersectionText = "";
-                UnionText = "";
+                IntersectionText = "---";
+                UnionText = "---";
                 ErrorText = "";
                 IntegerSet intersectSet = _set1.Intersection(_set2);
                 IntegerSet unionSet = _set1.Union(_set2);
