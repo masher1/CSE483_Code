@@ -1,4 +1,8 @@
-﻿using System;
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////
+// CSE483 - homework 1
+// Author - Malkiel Asher
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
