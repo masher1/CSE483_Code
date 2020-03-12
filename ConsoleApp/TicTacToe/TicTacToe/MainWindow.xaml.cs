@@ -1,4 +1,7 @@
-﻿using System;
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////
+// CSE483 - Tic Tac Toe
+// Author - Malkiel Asher
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -67,5 +70,10 @@ namespace TicTacToe
             _model.Clear();
         }
 
+        private void Signature_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // Launch my Github Page
+            System.Diagnostics.Process.Start("https://github.com/masher1");
+        }
     }
 }

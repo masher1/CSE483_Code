@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PaddleDemo
+namespace PushBallCollection
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -21,6 +21,7 @@ namespace PaddleDemo
     public partial class MainWindow : Window
     {
         private Model _model;
+        private bool _leftMouseDown = false;
 
 
         public MainWindow()
@@ -38,18 +39,18 @@ namespace PaddleDemo
             _model.WindowHeight = BallCanvas.RenderSize.Height;
             _model.WindowWidth = BallCanvas.RenderSize.Width;
             this.DataContext = _model;
+
             _model.InitModel();
             _model.SetStartPosition();
 
-   
+
+            // create an observable collection. this collection
+            // contains the tiles the represent the Tic Tac Toe grid
+            BrickItems.ItemsSource = _model.BrickCollection;
+
 
         }
 
-        private void BallCanvas_MouseMove(object sender, MouseEventArgs test)
-        {
-            Point p = test.GetPosition(this);
-            _model.ProcessMouseDrag2((uint)p.X, (uint)p.Y);
-        }
         private void KeypadDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Left)
@@ -68,34 +69,50 @@ namespace PaddleDemo
                 _model.MoveRight(false);
         }
 
-
-        private void BallCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            _model.ClickLeft(true);
-
-
+            _model.CleanUp();
         }
 
-        private void BallCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void BallCanvas_MouseMove(object sender, MouseEventArgs e)
         {
-            _model.ClickLeft(false);
+            if (_leftMouseDown)
+            {
+                Point p = e.GetPosition(this);
+                _model.ProcessMouseDrag((uint)p.X, (uint)p.Y);
+            }
         }
 
         private void BallCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _model.ClickRight(true);
             Point p = e.GetPosition(this);
-            _model.MoveBallRight((uint)p.X, (uint)p.Y);
+            _model.ProcessMouseClick((uint)p.X, (uint)p.Y);
+
         }
 
-        private void BallCanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        private void TheBall_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _model.ClickRight(false);
+            _leftMouseDown = true;
         }
 
-        private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void TheBall_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            _model.CleanUp();
+            _leftMouseDown = false;
+        }
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            // one of the buttons in our collection. need to figure out
+            // which one. Since we know the button is part of a collection, we 
+            // have a special way that we need to get at its bame
+
+            var selectedButton = e.OriginalSource as FrameworkElement;
+            if (selectedButton != null)
+            {
+                var currentTile = selectedButton.DataContext as Brick;
+                _model.ToggleBrickColor(currentTile.BrickName);
+            }
         }
 
     }

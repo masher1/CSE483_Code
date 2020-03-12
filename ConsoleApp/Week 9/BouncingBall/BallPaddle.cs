@@ -11,12 +11,10 @@ using System.ComponentModel;
 using System.Windows.Media;
 
 
-namespace PaddleDemo
+namespace BouncingBall
 {
     public partial class Model : INotifyPropertyChanged
-
     {
-
         private double _ballCanvasTop;
         public double ballCanvasTop
         {
@@ -102,21 +100,6 @@ namespace PaddleDemo
             {
                 _paddleWidth = value;
                 OnPropertyChanged("paddleWidth");
-            }
-        }
-
-        public void MoveBallRight(uint x, uint y)
-        {
-            ballCanvasLeft = x - (BallWidth/2);
-            ballCanvasTop = y - BallHeight/2;
-        }
-
-        public void ProcessMouseDrag2(uint x, uint y)
-        {
-            if (_moveBallLeftClick == true)
-         {
-                ballCanvasLeft = x - (BallWidth / 2);
-                ballCanvasTop = y - BallHeight / 2;
             }
         }
     }

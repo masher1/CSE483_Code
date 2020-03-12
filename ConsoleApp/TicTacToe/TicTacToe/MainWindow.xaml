@@ -1,16 +1,23 @@
 ﻿<Window x:Class="TicTacToe.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="600" Width="500">
-    <Grid>
-        <ItemsControl  x:Name="MyItemsControl" Width="400" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30,10,0,0">
+        Title="Tic Tac Toe Game" Height="670" Width="500" Cursor="UpArrow">
+    <Grid Background="#FF457EAC">
+        <TextBlock Text="TIC TAC TOE" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF0A014F" Margin="0,0,0,570" Background="#FF2D5D7B" Width="492" TextAlignment="Center" Height="68"/>
+        <ItemsControl  x:Name="MyItemsControl" Width="400" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="50,68,10,0">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Click="Button_Click" Height="120.0" Width="120.0" Name="Foo">
+                    <Button Click="Button_Click" Height="120.0" Width="120.0" Name="Foo" BorderBrush="#FF457EAC" BorderThickness="3" Foreground="#FF0A014F" ToolTip="Click Me!">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFC7B6F1" Offset="0.49"/>
+                                <GradientStop Color="#FFC2AFF0" Offset="0.51"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
                         <TextBlock Text="{Binding TileLabel}" 
                                    Foreground="{Binding TileBrush}"
                                    FontSize="60" FontWeight="Bold" 
-                                   HorizontalAlignment="Center" 
+                                   HorizontalAlignment="Center"
                                    VerticalAlignment="Center">
                         </TextBlock>
                     </Button>
@@ -24,9 +31,10 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
-        <Label x:Name="Error_Label" Content="{Binding Path=StatusText}" Background="LightBlue" Margin="0,470,0,41" Height="80" FontSize="20" HorizontalContentAlignment="Center" Width="490"/>
-        <Button x:Name="Play_Button" Click="Play_Button_Click" Content="Play" FontSize="28"  VerticalContentAlignment="Center"
-                Foreground="Blue" FontWeight="Bold" Background="AliceBlue"
-                Margin="0,400,0,0" VerticalAlignment="Top" Height="40"/>
+        <Label x:Name="Error_Label" Content="{Binding Path=StatusText}" Background="#FF2D5D7B" Margin="0,480,0,60" FontSize="20" Foreground="#FF0A014F" BorderBrush="#FF457EAC" BorderThickness="3" ToolTip="Displays notifications throughout the game"/>
+        <Button x:Name="Play_Button" Click="Play_Button_Click" Content="Play"  VerticalContentAlignment="Center" ToolTip="Resets the Game"
+                Foreground="#FF0A014F" Background="#FF2D5D7B"
+                Margin="0,441,0,0" Height="40" BorderBrush="#FF457EAC" BorderThickness="3" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontWeight="ExtraBlack" FontSize="24" TextOptions.TextFormattingMode="Display"/>
+        <Label x:Name="Signature" Content="Made by Malkiel Asher" FontSize="30" Foreground="#FF0A014F" FontFamily="Pristina" Margin="0,580,0,0" HorizontalContentAlignment="Right" FontWeight="Thin" MouseDown="Signature_MouseDown" ToolTip="Click Me!"/>
     </Grid>
 </Window>

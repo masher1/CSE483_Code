@@ -1,4 +1,7 @@
-﻿using System;
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////
+// CSE483 - Tic Tac Toe
+// Author - Malkiel Asher
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

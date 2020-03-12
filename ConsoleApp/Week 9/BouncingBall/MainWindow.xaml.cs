@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PaddleDemo
+namespace BouncingBall
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -41,21 +41,16 @@ namespace PaddleDemo
             _model.InitModel();
             _model.SetStartPosition();
 
-   
-
         }
 
-        private void BallCanvas_MouseMove(object sender, MouseEventArgs test)
-        {
-            Point p = test.GetPosition(this);
-            _model.ProcessMouseDrag2((uint)p.X, (uint)p.Y);
-        }
         private void KeypadDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Left)
                 _model.MoveLeft(true);
             else if (e.Key == Key.Right)
                 _model.MoveRight(true);
+            else if (e.Key == Key.S)
+                _model.MoveBall = !_model.MoveBall;
             else if (e.Key == Key.R)
                 _model.SetStartPosition();
         }
@@ -66,31 +61,6 @@ namespace PaddleDemo
                 _model.MoveLeft(false);
             else if (e.Key == Key.Right)
                 _model.MoveRight(false);
-        }
-
-
-        private void BallCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            _model.ClickLeft(true);
-
-
-        }
-
-        private void BallCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            _model.ClickLeft(false);
-        }
-
-        private void BallCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            _model.ClickRight(true);
-            Point p = e.GetPosition(this);
-            _model.MoveBallRight((uint)p.X, (uint)p.Y);
-        }
-
-        private void BallCanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            _model.ClickRight(false);
         }
 
         private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)

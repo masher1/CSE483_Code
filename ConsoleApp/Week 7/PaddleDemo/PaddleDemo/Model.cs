@@ -1,34 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 // observable collections
-using System.Collections.ObjectModel;
 
 // debug output
-using System.Diagnostics;
 
 // timer, sleep
 using System.Threading;
 
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows;
-
 // Rectangle
 // Must update References manually
-using System.Drawing;
 
 // INotifyPropertyChanged
 using System.ComponentModel;
 
 // Threading.Timer
-using System.Windows.Threading;
 
 // Timer.Timer
-using System.Timers;
 
 namespace PaddleDemo
 {
@@ -44,11 +31,26 @@ namespace PaddleDemo
             }
         }
 
+        private static UInt32 _numBalls = 1;
+        private UInt32[] _buttonPresses = new UInt32[_numBalls];
         Random _randomNumber = new Random();
+        private double _ballXMove = 1;
+        private double _ballYMove = 1;
+        System.Drawing.Rectangle _ballRectangle;
         System.Drawing.Rectangle _paddleRectangle;
         bool _movepaddleLeft = false;
         bool _movepaddleRight = false;
+        bool _moveBallLeftClick = false;
+        bool _moveBallRightClick = false;
         uint _paddleMoveSize = 10;
+
+
+        private bool _moveBall = false;
+        public bool MoveBall
+        {
+            get { return _moveBall; }
+            set { _moveBall = value; }
+        }
 
 
 #if THREADING_TIMER
@@ -100,7 +102,30 @@ namespace PaddleDemo
             // how far does the paddle move (pixels)
             _paddleMoveSize = 5;
         }
+        private Boolean _leftMouseButtonStatus = false;
+        public Boolean leftMouseButtonStatus
+        {
+            get { return _leftMouseButtonStatus; }
+            set
+            {
+                _moveBallLeftClick= true;
+                
+                _leftMouseButtonStatus = value;
+                OnPropertyChanged("leftMouseButtonStatus");
+            }
+        }
 
+        private Boolean _rightMouseButtonStatus = false;
+        public Boolean rightMouseButtonStatus
+        {
+            get { return _rightMouseButtonStatus; }
+            set
+            {
+                _moveBallRightClick = true;
+                _rightMouseButtonStatus = value;
+                OnPropertyChanged("rightMouseButtonStatus");
+            }
+        }
         public void CleanUp()
         {
         }
@@ -110,9 +135,14 @@ namespace PaddleDemo
         {            
             paddleWidth = 120;
             paddleHeight = 50;
+            BallHeight = 50;
+            BallWidth = 50;
 
-            paddleCanvasLeft = _windowWidth / 2 - paddleWidth / 2;
-            paddleCanvasTop = _windowHeight - paddleHeight;
+            ballCanvasLeft = _windowWidth / 2 - BallWidth / 2;
+            ballCanvasTop = _windowHeight / 5;
+
+            paddleCanvasLeft = _windowWidth - paddleWidth / 2;
+            paddleCanvasTop = _windowHeight / 2- paddleHeight;
             _paddleRectangle = new System.Drawing.Rectangle((int)paddleCanvasLeft, (int)paddleCanvasTop, (int)paddleWidth, (int)paddleHeight);
         }
 
@@ -124,6 +154,16 @@ namespace PaddleDemo
         public void MoveRight(bool move)
         {
             _movepaddleRight = move;
+        }
+
+        public void ClickLeft(bool move)
+        {
+            _moveBallLeftClick = move;
+        }
+
+        public void ClickRight(bool move)
+        {
+            _moveBallRightClick = move;
         }
 
 #if THREADING_TIMER
@@ -141,6 +181,21 @@ namespace PaddleDemo
                 paddleCanvasLeft += _paddleMoveSize;
             
             _paddleRectangle = new System.Drawing.Rectangle((int)paddleCanvasLeft, (int)paddleCanvasTop, (int)paddleWidth, (int)paddleHeight);
-        }  
+        }
+
+        private void BallMMTimerCallback(IntPtr pWhat, bool success)
+        {
+
+            _ballRectangle = new System.Drawing.Rectangle((int)ballCanvasLeft, (int)ballCanvasTop, (int)BallWidth, (int)BallHeight);
+            if (_ballRectangle.IntersectsWith(_paddleRectangle))
+            {
+                // hit paddle. reverse direction in Y direction
+                paddleCanvasLeft -= _paddleMoveSize;
+
+
+            }
+
+        }
+
     }
-}
+

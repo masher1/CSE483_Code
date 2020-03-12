@@ -1,9 +1,11 @@
-﻿using System;
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////
+// CSE483 - Tic Tac Toe
+// Author - Malkiel Asher
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 // Brushes
 using System.Windows.Media;
 
@@ -86,7 +88,7 @@ namespace TicTacToe
                     TileCollection[index].TileBrush = Brushes.Green;
                     TileCollection[index].Pressed = true;
 
-                    StatusText = "User Selected Button " + index.ToString() + "\n" + _buttonPresses;
+                    StatusText = "User Selected Button " + index.ToString() + "\n" + "It is O's Turn";
                     counter++;
                     if (_buttonPresses > 4)
                         WinnerSelection();
@@ -97,7 +99,7 @@ namespace TicTacToe
                     TileCollection[index].TileBrush = Brushes.Red;
                     TileCollection[index].Pressed = true;
 
-                    StatusText = "User Selected Button " + index.ToString() + "\n" + _buttonPresses;
+                    StatusText = "User Selected Button " + index.ToString() + "\n" + "It is X's Turn";
                     counter++;
                     if (_buttonPresses > 4)
                         WinnerSelection();
@@ -140,82 +142,68 @@ namespace TicTacToe
             i / 3 = 0,1,2*/
             Boolean empty = false;
 
-            for (int x = 0; x < _numTiles; x++)
-            {
-                Console.WriteLine(TileCollection[x].TileLabel + ",");
-            }
-            /*for (int x = 0; x < _numTiles; x++)
-            {
-                if (TileCollection[x].TileLabel != " ")
-                {
-                    empty = true;
-                    break;
-                }
-                else
-                    return false;
-            }*/
             if ((TileCollection[0].TileLabel == TileCollection[1].TileLabel && TileCollection[1].TileLabel == TileCollection[2].TileLabel) && (TileCollection[2].TileLabel != " ")){
                 winner = true;
-                TileCollection[0].TileBrush = Brushes.Blue;
-                TileCollection[1].TileBrush = Brushes.Blue;
-                TileCollection[2].TileBrush = Brushes.Blue;
-                StatusText = TileCollection[0].TileLabel + " on First Row!";
+                TileCollection[0].TileBrush = Brushes.Navy;
+                TileCollection[1].TileBrush = Brushes.Navy;
+                TileCollection[2].TileBrush = Brushes.Navy;
+                StatusText = TileCollection[0].TileLabel + " won on First Row!\n🤩";
             }
             else if ((TileCollection[3].TileLabel == TileCollection[4].TileLabel && TileCollection[4].TileLabel == TileCollection[5].TileLabel) && (TileCollection[3].TileLabel != " "))
             {
                 winner = true;
-                TileCollection[3].TileBrush = Brushes.Blue;
-                TileCollection[4].TileBrush = Brushes.Blue;
-                TileCollection[5].TileBrush = Brushes.Blue;
-                StatusText = TileCollection[3].TileLabel + " on Second Row!";
+                TileCollection[3].TileBrush = Brushes.Navy;
+                TileCollection[4].TileBrush = Brushes.Navy;
+                TileCollection[5].TileBrush = Brushes.Navy;
+                StatusText = TileCollection[3].TileLabel + " won on Second Row!\n🤩";
             }
             else if ((TileCollection[6].TileLabel == TileCollection[7].TileLabel && TileCollection[7].TileLabel == TileCollection[8].TileLabel) && (TileCollection[6].TileLabel != " "))
             {
                 winner = true;
-                TileCollection[6].TileBrush = Brushes.Blue;
-                TileCollection[7].TileBrush = Brushes.Blue;
-                TileCollection[8].TileBrush = Brushes.Blue;
-                StatusText = TileCollection[6].TileLabel + " on Third Row!";
+                TileCollection[6].TileBrush = Brushes.Navy;
+                TileCollection[7].TileBrush = Brushes.Navy;
+                TileCollection[8].TileBrush = Brushes.Navy;
+                StatusText = TileCollection[6].TileLabel + " won on Third Row!\n🤩";
             }
             else if ((TileCollection[0].TileLabel == TileCollection[3].TileLabel && TileCollection[3].TileLabel == TileCollection[6].TileLabel)  && (TileCollection[0].TileLabel != " "))
             {
                 winner = true;
-                TileCollection[0].TileBrush = Brushes.Blue;
-                TileCollection[3].TileBrush = Brushes.Blue;
-                TileCollection[6].TileBrush = Brushes.Blue;
-                StatusText = TileCollection[0].TileLabel + " on First Column!";
+                TileCollection[0].TileBrush = Brushes.Navy;
+                TileCollection[3].TileBrush = Brushes.Navy;
+                TileCollection[6].TileBrush = Brushes.Navy;
+                StatusText = TileCollection[0].TileLabel + " won on First Column!\n🤩";
             }
             else if ((TileCollection[1].TileLabel == TileCollection[4].TileLabel && TileCollection[4].TileLabel == TileCollection[7].TileLabel)  && (TileCollection[1].TileLabel != " "))
             {
                 winner = true;
-                TileCollection[1].TileBrush = Brushes.Blue;
-                TileCollection[4].TileBrush = Brushes.Blue;
-                TileCollection[7].TileBrush = Brushes.Blue;
-                StatusText = TileCollection[1].TileLabel + " on Second Column!";
+                TileCollection[1].TileBrush = Brushes.Navy;
+                TileCollection[4].TileBrush = Brushes.Navy;
+                TileCollection[7].TileBrush = Brushes.Navy;
+                StatusText = TileCollection[1].TileLabel + " won on Second Column!\n🤩";
             }
             else if ((TileCollection[2].TileLabel == TileCollection[5].TileLabel && TileCollection[5].TileLabel == TileCollection[8].TileLabel)  && (TileCollection[2].TileLabel != " "))
             {
                 winner = true;
-                TileCollection[2].TileBrush = Brushes.Blue;
-                TileCollection[7].TileBrush = Brushes.Blue;
-                TileCollection[8].TileBrush = Brushes.Blue;
-                StatusText = TileCollection[2].TileLabel + " on Third Column!";
+                TileCollection[2].TileBrush = Brushes.Navy;
+                TileCollection[7].TileBrush = Brushes.Navy;
+                TileCollection[8].TileBrush = Brushes.Navy;
+                StatusText = TileCollection[2].TileLabel + " won on Third Column!\n🤩";
             }
             else if ((TileCollection[0].TileLabel == TileCollection[4].TileLabel && TileCollection[4].TileLabel == TileCollection[8].TileLabel)  && (TileCollection[0].TileLabel != " "))
             {
                 winner = true;
-                TileCollection[0].TileBrush = Brushes.Blue;
-                TileCollection[4].TileBrush = Brushes.Blue;
-                TileCollection[8].TileBrush = Brushes.Blue;
-                StatusText = TileCollection[0].TileLabel + " on Diagonal Row!";
+                TileCollection[0].TileBrush = Brushes.Navy;
+                TileCollection[4].TileBrush = Brushes.Navy;
+                TileCollection[8].TileBrush = Brushes.Navy;
+                StatusText = TileCollection[0].TileLabel + " won on Diagonal Row!\n🤩";
             }
             else if ((TileCollection[2].TileLabel == TileCollection[4].TileLabel && TileCollection[4].TileLabel == TileCollection[6].TileLabel)  && (TileCollection[2].TileLabel != " "))
             {
                 winner = true;
-                TileCollection[2].TileBrush = Brushes.Blue;
-                TileCollection[4].TileBrush = Brushes.Blue;
-                TileCollection[6].TileBrush = Brushes.Blue;
-                StatusText = TileCollection[2].TileLabel + " on Inverse Diagonal Row!";
+                TileCollection[2].TileBrush = Brushes.Navy;
+                TileCollection[4].TileBrush = Brushes.Navy;
+                TileCollection[6].TileBrush = Brushes.Navy;
+                StatusText = TileCollection[2].TileLabel + " won on Inverse Diagonal Row!\n🤩";
             }
             else if(counter==9 && winner == false)
             {
@@ -224,7 +212,7 @@ namespace TicTacToe
                 {
                     TileCollection[x].TileBrush = Brushes.White;
                 }
-                StatusText = "It's a Draw";
+                StatusText = "It's a Draw\n😥";
             }
             return winner;
         }
