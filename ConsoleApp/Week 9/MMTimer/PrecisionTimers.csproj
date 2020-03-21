@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5AA4B75F-FD4C-4D0C-B945-22F0E3C5F5C7}</ProjectGuid>
+    <ProjectGuid>{FC96A2B2-C49B-4BE6-832A-9E5BD28675BE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PrecisionTimers</RootNamespace>

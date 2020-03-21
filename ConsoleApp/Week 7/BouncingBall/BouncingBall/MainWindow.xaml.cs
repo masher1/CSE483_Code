@@ -42,35 +42,35 @@ namespace BouncingBall
             _model.InitModel();
             _model.SetStartPosition();
 
-            myModel = new Model();
-            this.DataContext = myModel;
+            /*myModel = new Model();
+            this.DataContext = myModel;*/
 
         }
 
         private void BallCanvas_MouseMove(object sender, MouseEventArgs e)
         {
             Point p = e.GetPosition(this);
-            _model.ProcessMouseDrag((uint)p.X, (uint)p.Y);
+            //_model.ProcessMouseDrag((uint)p.X, (uint)p.Y);
         }
 
         private void BallCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _model.ProcessLMBDown();
+            //_model.ProcessLMBDown();
         }
 
         private void BallCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            _model.ProcessLMBUp();
+            //_model.ProcessLMBUp();
         }
 
         private void BallCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _model.ProcessRMBDown();
+            //_model.ProcessRMBDown();
         }
 
         private void BallCanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            _model.ProcessRMBUp();
+            //_model.ProcessRMBUp();
         }
 
         private void KeypadDown(object sender, KeyEventArgs e)

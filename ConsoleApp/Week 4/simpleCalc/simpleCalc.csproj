@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B54D7AA6-AF78-4987-BF68-76DDE21699E1}</ProjectGuid>
+    <ProjectGuid>{8A42C677-C4B7-4BFD-834C-EBC4EBA83E19}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>simpleCalc</RootNamespace>
     <AssemblyName>simpleCalc</AssemblyName>

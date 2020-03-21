@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{77654024-2052-485A-825E-7E555B12861C}</ProjectGuid>
+    <ProjectGuid>{2F098758-44DB-4D39-A4C0-598F304F29EA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TimerDemo</RootNamespace>

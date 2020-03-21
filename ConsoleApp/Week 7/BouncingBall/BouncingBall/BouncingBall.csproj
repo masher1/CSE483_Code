@@ -99,7 +99,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MMTimer\PrecisionTimers.csproj">
+    <ProjectReference Include="..\..\PrecisionTimer\MMTimer\PrecisionTimers.csproj">
       <Project>{5aa4b75f-fd4c-4d0c-b945-22f0e3c5f5c7}</Project>
       <Name>PrecisionTimers</Name>
     </ProjectReference>

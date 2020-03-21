@@ -91,7 +91,7 @@ namespace PaddleDemo
             // Create an inferred delegate that invokes methods for the timer.
             _paddleTimerCB = paddleTimerCallback;
             // Create a timer that signals the delegate to invoke 
-            _paddleTimer = new System.Threading.Timer(_paddleTimerCB, null, 5,5);
+            _paddleTimer = new System.Threading.Timer(_paddleTimerCB, null, 5, 5);
 #else
             _paddleTimer = new System.Timers.Timer(5);
             _paddleTimer.Elapsed += new ElapsedEventHandler(paddleTimerHandler);
@@ -108,8 +108,8 @@ namespace PaddleDemo
             get { return _leftMouseButtonStatus; }
             set
             {
-                _moveBallLeftClick= true;
-                
+                _moveBallLeftClick = true;
+
                 _leftMouseButtonStatus = value;
                 OnPropertyChanged("leftMouseButtonStatus");
             }
@@ -132,7 +132,7 @@ namespace PaddleDemo
 
 
         public void SetStartPosition()
-        {            
+        {
             paddleWidth = 120;
             paddleHeight = 50;
             BallHeight = 50;
@@ -142,7 +142,7 @@ namespace PaddleDemo
             ballCanvasTop = _windowHeight / 5;
 
             paddleCanvasLeft = _windowWidth - paddleWidth / 2;
-            paddleCanvasTop = _windowHeight / 2- paddleHeight;
+            paddleCanvasTop = _windowHeight / 2 - paddleHeight;
             _paddleRectangle = new System.Drawing.Rectangle((int)paddleCanvasLeft, (int)paddleCanvasTop, (int)paddleWidth, (int)paddleHeight);
         }
 
@@ -179,7 +179,7 @@ namespace PaddleDemo
                 paddleCanvasLeft -= _paddleMoveSize;
             else if (_movepaddleRight && paddleCanvasLeft < _windowWidth - paddleWidth)
                 paddleCanvasLeft += _paddleMoveSize;
-            
+
             _paddleRectangle = new System.Drawing.Rectangle((int)paddleCanvasLeft, (int)paddleCanvasTop, (int)paddleWidth, (int)paddleHeight);
         }
 
@@ -198,4 +198,4 @@ namespace PaddleDemo
         }
 
     }
-
+}
