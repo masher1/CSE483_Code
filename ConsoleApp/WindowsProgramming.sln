@@ -62,6 +62,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BouncingBall", "BouncingBall", "{A3F4E60D-E780-4D0C-9012-79D181031292}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerDemo", "Week 7\TimerDemo\TimerDemo\TimerDemo.csproj", "{77654024-2052-485A-825E-7E555B12861C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FC96A2B2-C49B-4BE6-832A-9E5BD28675BE} = {FC96A2B2-C49B-4BE6-832A-9E5BD28675BE}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrecisionTimers", "Week 7\PrecisionTimer\MMTimer\PrecisionTimers.csproj", "{5AA4B75F-FD4C-4D0C-B945-22F0E3C5F5C7}"
 EndProject

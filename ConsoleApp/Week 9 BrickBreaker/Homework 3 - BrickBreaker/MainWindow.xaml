@@ -4,9 +4,62 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework_3___BrickBreaker"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Bouncing Ball" Height="500" Width="766"
+        Loaded="WindowLoaded"
+        KeyDown="KeypadDown" 
+        KeyUp="KeypadUp" 
+        Closing="OnClosing">
     <Grid>
-        
+        <Canvas Name="ScoreCanvas" Background="BurlyWood" Height="100" Width="750" VerticalAlignment="Top">
+            <Grid/>
+            <Label x:Name="ElapsedTime" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="140" Content="ELAPSED TIME" Canvas.Left="92" Canvas.Top="10" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Segoe UI Black" />
+            <Label x:Name="elapsedTimeCounter" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="65" Content="0" Canvas.Left="242" Canvas.Top="10" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Ink Free" FontWeight="Bold" />
+            <Label x:Name="Score" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="140" Content="SCORE" Canvas.Left="453" Canvas.Top="10" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Segoe UI Black" />
+            <Label x:Name="scoreCounter" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="65" Content="0" Canvas.Left="603" Canvas.Top="10" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Ink Free" FontWeight="Bold" />
+            <Label x:Name="Keys" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="578" Content="S to Start/Pause | B to Replace Ball | R to Reset Game | E to Exit" Canvas.Left="90" Canvas.Top="51" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Segoe UI Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+        </Canvas>
+        <Canvas 
+        Name="BallCanvas"
+        VerticalAlignment="Bottom"
+        Height="368" 
+        Width="750"
+        Background="BlanchedAlmond">
+            <ItemsControl x:Name="BrickItems">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:Name="BrickTemplate">
+                        <Canvas>
+                            <Rectangle Fill="Black" Stroke="DarkRed" Height="{Binding BrickHeight}" Width="{Binding BrickWidth}" Canvas.Top="{Binding BrickCanvasTop}" Canvas.Left ="{Binding BrickCanvasLeft}" Visibility="{Binding BrickVisible}"></Rectangle>
+                        </Canvas>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <!-- A WrapPanel ensures the items wrap to the next line -->
+                        <!-- when it runs out of room in the window dimensions -->
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            <Ellipse 
+            Canvas.Top="{Binding ballCanvasTop}" 
+            Canvas.Left="{Binding ballCanvasLeft}"  
+            Width="{Binding ballWidth}" 
+            Height="{Binding ballHeight}">
+                <Ellipse.Fill>
+                    <RadialGradientBrush GradientOrigin="0.75,0.25">
+                        <GradientStop Color="Yellow" Offset="0.0" />
+                        <GradientStop Color="Orange" Offset="0.5" />
+                        <GradientStop Color="Red" Offset="1.0" />
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Rectangle
+            Canvas.Top ="{Binding paddleCanvasTop}"
+            Canvas.Left="{Binding paddleCanvasLeft}"
+            Fill="Black"
+            Height="{Binding paddleHeight}"
+            Width="{Binding paddleWidth}">
+            </Rectangle>
+        </Canvas>
     </Grid>
 </Window>

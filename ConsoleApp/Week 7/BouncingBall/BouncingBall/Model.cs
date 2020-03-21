@@ -154,7 +154,6 @@ namespace BouncingBall
 
         private void BallMMTimerCallback(IntPtr pWhat, bool success)
         {
-
             if (!_moveBall)
                 return;
 

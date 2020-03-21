@@ -21,7 +21,7 @@ namespace BouncingBall
     public partial class MainWindow : Window
     {
         private Model _model;
-        private Model _model2;
+        //private Model _model2;
 
 
         public MainWindow()
