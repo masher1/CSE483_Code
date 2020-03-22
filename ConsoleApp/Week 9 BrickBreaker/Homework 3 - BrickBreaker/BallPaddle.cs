@@ -193,5 +193,16 @@ namespace Homework_3___BrickBreaker
                 OnPropertyChanged("paddleWidth");
             }
         }
+
+        private Brush _fillColor;
+        public Brush FillColor
+        {
+            get { return _fillColor; }
+            set
+            {
+                _fillColor = value;
+                OnPropertyChanged("FillColor");
+            }
+        }
     }
 }

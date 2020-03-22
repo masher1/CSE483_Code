@@ -4,31 +4,39 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework_3___BrickBreaker"
-        Title="Bouncing Ball" Height="500" Width="766"
+        mc:Ignorable="d"
+        Title="Bouncing Ball" Height="587.47" Width="900.00"
         Loaded="WindowLoaded"
         KeyDown="KeypadDown" 
         KeyUp="KeypadUp" 
         Closing="OnClosing">
     <Grid>
-        <Canvas Name="ScoreCanvas" Background="BurlyWood" Height="100" Width="750" VerticalAlignment="Top">
+        <Canvas Name="ScoreCanvas" Background="BurlyWood" Height="100" VerticalAlignment="Top">
             <Grid/>
-            <Label x:Name="ElapsedTime" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="140" Content="ELAPSED TIME" Canvas.Left="92" Canvas.Top="10" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Segoe UI Black" />
-            <Label x:Name="elapsedTimeCounter" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="65" Content="0" Canvas.Left="242" Canvas.Top="10" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Ink Free" FontWeight="Bold" />
-            <Label x:Name="Score" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="140" Content="SCORE" Canvas.Left="453" Canvas.Top="10" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Segoe UI Black" />
-            <Label x:Name="scoreCounter" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="65" Content="0" Canvas.Left="603" Canvas.Top="10" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Ink Free" FontWeight="Bold" />
-            <Label x:Name="Keys" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="578" Content="S to Start/Pause | B to Replace Ball | R to Reset Game | E to Exit" Canvas.Left="90" Canvas.Top="51" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Segoe UI Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+            <Label x:Name="ElapsedTime" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="140" Content="ELAPSED TIME" Canvas.Left="148" Canvas.Top="10" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Segoe UI Black" />
+            <Label x:Name="elapsedTimeCounter" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="64" Content="0" Canvas.Left="298" Canvas.Top="10" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Ink Free" FontWeight="Bold" />
+            <Label x:Name="Score" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="140" Content="SCORE" Canvas.Left="508" Canvas.Top="10" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Segoe UI Black" />
+            <Label x:Name="scoreCounter" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="66" Content="0" Canvas.Left="658" Canvas.Top="10" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Ink Free" FontWeight="Bold" />
+            <Label x:Name="Keys" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="578" Content="S to Start/Pause | B to Replace Ball | R to Reset Game | E to Exit" Canvas.Left="146" Canvas.Top="51" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Segoe UI Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
         </Canvas>
-        <Canvas 
+        <Canvas
         Name="BallCanvas"
         VerticalAlignment="Bottom"
-        Height="368" 
-        Width="750"
-        Background="BlanchedAlmond">
+        Height="456"
+        Background="BlanchedAlmond" MouseMove="BallCanvas_MouseMove" MouseRightButtonDown="BallCanvas_MouseRightButtonDown">
             <ItemsControl x:Name="BrickItems">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:Name="BrickTemplate">
                         <Canvas>
-                            <Rectangle Fill="Black" Stroke="DarkRed" Height="{Binding BrickHeight}" Width="{Binding BrickWidth}" Canvas.Top="{Binding BrickCanvasTop}" Canvas.Left ="{Binding BrickCanvasLeft}" Visibility="{Binding BrickVisible}"></Rectangle>
+                            <Rectangle
+                            Fill="{Binding BrickFill}"
+                            Stroke="DarkRed"
+                            Height="{Binding BrickHeight}"
+                            Width="{Binding BrickWidth}"
+                            Canvas.Top="{Binding BrickCanvasTop}"
+                            Canvas.Left ="{Binding BrickCanvasLeft}"
+                            Visibility="{Binding BrickVisible}">
+                            </Rectangle>
                         </Canvas>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -40,10 +48,10 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-            <Ellipse 
-            Canvas.Top="{Binding ballCanvasTop}" 
-            Canvas.Left="{Binding ballCanvasLeft}"  
-            Width="{Binding ballWidth}" 
+            <Ellipse
+            Canvas.Top="{Binding ballCanvasTop}"
+            Canvas.Left="{Binding ballCanvasLeft}"
+            Width="{Binding ballWidth}"
             Height="{Binding ballHeight}">
                 <Ellipse.Fill>
                     <RadialGradientBrush GradientOrigin="0.75,0.25">

@@ -22,6 +22,7 @@ namespace Homework_3___BrickBreaker{
     public partial class MainWindow : Window
     {
         private Model _model;
+        private bool _leftMouseDown = false;
 
         DispatcherTimer dispatcherTimer = new DispatcherTimer();
         Stopwatch stopWatch = new Stopwatch();
@@ -48,6 +49,7 @@ namespace Homework_3___BrickBreaker{
             _model.InitModel();
             _model.SetStartPosition();
 
+            BrickItems.ItemsSource = _model.BrickCollection;
         }
 
         void dt_Tick(object sender, EventArgs e)
@@ -58,38 +60,6 @@ namespace Homework_3___BrickBreaker{
                 currentTime = String.Format("{0:0}", ts.Seconds);
                 elapsedTimeCounter.Content = currentTime;
             }
-        }
-
-        private void resetbtn_Click(object sender, RoutedEventArgs e)
-        {
-            stopWatch.Reset();
-            elapsedTimeCounter.Content = "0";
-        }
-
-        private void BallCanvas_MouseMove(object sender, MouseEventArgs e)
-        {
-            Point p = e.GetPosition(this);
-            //_model.ProcessMouseDrag((uint)p.X, (uint)p.Y);
-        }
-
-        private void BallCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //_model.ProcessLMBDown();
-        }
-
-        private void BallCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            //_model.ProcessLMBUp();
-        }
-
-        private void BallCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //_model.ProcessRMBDown();
-        }
-
-        private void BallCanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            //_model.ProcessRMBUp();
         }
 
         private void KeypadDown(object sender, KeyEventArgs e)
@@ -108,6 +78,20 @@ namespace Homework_3___BrickBreaker{
                 this.Close();
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            // one of the buttons in our collection. need to figure out
+            // which one. Since we know the button is part of a collection, we 
+            // have a special way that we need to get at its bame
+
+            var selectedButton = e.OriginalSource as FrameworkElement;
+            if (selectedButton != null)
+            {
+                var currentTile = selectedButton.DataContext as Brick;
+                _model.ToggleBrickColor(currentTile.BrickName);
+            }
+        }
+
         private void KeypadUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Left)
@@ -116,10 +100,42 @@ namespace Homework_3___BrickBreaker{
                 _model.MoveRight(false);
         }
 
+        private void resetbtn_Click(object sender, RoutedEventArgs e)
+        {
+            stopWatch.Reset();
+            elapsedTimeCounter.Content = "0";
+        }
+
         private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _model.CleanUp();
         }
 
+
+        private void BallCanvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_leftMouseDown)
+            {
+                Point p = e.GetPosition(this);
+                _model.ProcessMouseDrag((uint)p.X, (uint)p.Y);
+            }
+        }
+
+        private void BallCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Point p = e.GetPosition(this);
+            _model.ProcessMouseClick((uint)p.X, (uint)p.Y);
+
+        }
+
+        private void TheBall_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            _leftMouseDown = true;
+        }
+
+        private void TheBall_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            _leftMouseDown = false;
+        }
     }
 }

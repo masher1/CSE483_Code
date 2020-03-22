@@ -79,8 +79,8 @@ namespace Homework_3___BrickBreaker
         Rectangle[] _brickRectangles = new Rectangle[4];
         // note that the brick height, number of brick columns and rows
         // must match our window demensions.
-        double _brickHeight = 50;
-        double _brickWidth = 120;
+        double _brickHeight = 30;
+        double _brickWidth = 80;
 
         private static UInt32 _numBalls = 1;
         private UInt32[] _buttonPresses = new UInt32[_numBalls];
@@ -135,11 +135,20 @@ namespace Homework_3___BrickBreaker
         /// <returns></returns>
         public Model()
         {
+            SolidColorBrush mySolidColorBrushRed = new SolidColorBrush();
+            SolidColorBrush mySolidColorBrushBlue = new SolidColorBrush();
+
+            // Describes the brush's color using RGB values. 
+            // Each value has a range of 0-255.
+
+            mySolidColorBrushRed.Color = System.Windows.Media.Color.FromRgb(255, 0, 0);
+            FillColorRed = mySolidColorBrushRed;
+            mySolidColorBrushBlue.Color = System.Windows.Media.Color.FromRgb(0, 0, 255);
+            FillColorBlue = mySolidColorBrushBlue;
         }
 
         public void InitModel()
         {
-
             // this delegate is needed for the multi media timer defined 
             // in the TimerQueueTimer class.
             _ballTimerCallbackDelegate = new TimerQueueTimer.WaitOrTimerDelegate(BallMMTimerCallback);
@@ -199,9 +208,8 @@ namespace Homework_3___BrickBreaker
                     BrickName = brick.ToString(),
                 });
 
-
-                BrickCollection[brick].BrickCanvasLeft = _windowWidth / 2 - _brickWidth / 2;
-                BrickCollection[brick].BrickCanvasTop = brick * _brickHeight + 150; // offset the bricks from the top of the screen by a bitg
+                /*BrickCollection[brick].BrickCanvasLeft = 0;//_windowWidth / 2 - _brickWidth / 2;
+                BrickCollection[brick].BrickCanvasTop = brick * _brickHeight; // offset the bricks from the top of the screen by a bitg*/
             }
 
             UpdateRects();
@@ -356,7 +364,6 @@ namespace Homework_3___BrickBreaker
 
         private void paddleMMTimerCallback(IntPtr pWhat, bool success)
         {
-
             // start executing callback. this ensures we are synched correctly
             // if the form is abruptly closed
             // if this function returns false, we should exit the callback immediately
@@ -374,12 +381,9 @@ namespace Homework_3___BrickBreaker
 
             _paddleRectangle = new System.Drawing.Rectangle((int)paddleCanvasLeft, (int)paddleCanvasTop, (int)paddleWidth, (int)paddleHeight);
 
-
             // done in callback. OK to delete timer
             _paddleHiResTimer.DoneExecutingCallback();
         }
-
-
 
         public void CleanUp()
         {
@@ -426,8 +430,6 @@ namespace Homework_3___BrickBreaker
             ballCanvasLeft = _windowWidth / 2 - ballWidth / 2;
             ballCanvasTop = _windowHeight / 5;
 
-            UpdateRects();
-
             paddleWidth = 120;
             paddleHeight = 10;
 
@@ -439,6 +441,8 @@ namespace Homework_3___BrickBreaker
             paddleCanvasLeft = _windowWidth / 2 - paddleWidth / 2;
             paddleCanvasTop = _windowHeight - paddleHeight;
             _paddleRectangle = new System.Drawing.Rectangle((int)paddleCanvasLeft, (int)paddleCanvasTop, (int)paddleWidth, (int)paddleHeight);
+
+            UpdateRects();
         }
 
         public void MoveLeft(bool move)
@@ -477,6 +481,22 @@ namespace Homework_3___BrickBreaker
                 return InterectSide.LEFT;
 
             return InterectSide.NONE;
+        }
+
+        public void ToggleBrickColor(String name)
+        {
+            int index = int.Parse(name);
+            if (BrickCollection[index].BrickFill == FillColorBlue)
+            {
+                BrickCollection[index].BrickFill = FillColorRed;
+                return;
+            }
+
+            if (BrickCollection[index].BrickFill == FillColorRed)
+            {
+                BrickCollection[index].BrickFill = FillColorBlue;
+                return;
+            }
         }
 
         private void CheckPush()
