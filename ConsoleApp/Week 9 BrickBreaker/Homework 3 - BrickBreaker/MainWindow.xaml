@@ -29,8 +29,8 @@
                     <DataTemplate x:Name="BrickTemplate">
                         <Canvas>
                             <Rectangle
-                            Fill="{Binding BrickFill}"
-                            Stroke="DarkRed"
+                            Fill="Blue"
+                            Stroke="BlueViolet"
                             Height="{Binding BrickHeight}"
                             Width="{Binding BrickWidth}"
                             Canvas.Top="{Binding BrickCanvasTop}"
@@ -68,6 +68,7 @@
             Height="{Binding paddleHeight}"
             Width="{Binding paddleWidth}">
             </Rectangle>
+            <Label x:Name="Signature" Content="Made by Malkiel Asher" FontSize="30" Foreground="#FF0A014F" FontFamily="Pristina" Margin="0,0,0,0" HorizontalContentAlignment="Right" FontWeight="Thin" ToolTip="Click Me!" Canvas.Left="597" Canvas.Top="410"/>
         </Canvas>
     </Grid>
 </Window>

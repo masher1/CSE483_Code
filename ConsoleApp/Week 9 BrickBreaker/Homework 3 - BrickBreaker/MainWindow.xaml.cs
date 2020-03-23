@@ -78,20 +78,6 @@ namespace Homework_3___BrickBreaker{
                 this.Close();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            // one of the buttons in our collection. need to figure out
-            // which one. Since we know the button is part of a collection, we 
-            // have a special way that we need to get at its bame
-
-            var selectedButton = e.OriginalSource as FrameworkElement;
-            if (selectedButton != null)
-            {
-                var currentTile = selectedButton.DataContext as Brick;
-                _model.ToggleBrickColor(currentTile.BrickName);
-            }
-        }
-
         private void KeypadUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Left)

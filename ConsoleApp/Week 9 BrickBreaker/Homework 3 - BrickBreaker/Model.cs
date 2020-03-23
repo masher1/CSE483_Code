@@ -197,6 +197,7 @@ namespace Homework_3___BrickBreaker
             // create brick collection
             // place them manually at the top of the item collection in the view
             BrickCollection = new ObservableCollection<Brick>();
+            int counter = 0; //counter for number of rows
             for (int brick = 0; brick < _numBricks; brick++)
             {
                 BrickCollection.Add(new Brick()
@@ -208,21 +209,41 @@ namespace Homework_3___BrickBreaker
                     BrickName = brick.ToString(),
                 });
 
-                /*BrickCollection[brick].BrickCanvasLeft = 0;//_windowWidth / 2 - _brickWidth / 2;
-                BrickCollection[brick].BrickCanvasTop = brick * _brickHeight; // offset the bricks from the top of the screen by a bitg*/
+                if (brick == 0)
+                {
+                    BrickCollection[brick].BrickCanvasLeft = 0;
+                    BrickCollection[brick].BrickCanvasTop = brick * _brickHeight; // offset the bricks from the top
+                }
+                else if (brick % 11 == 1 && (brick - 1) != 0)//shift down one and reset side
+                {
+                    BrickCollection[brick].BrickCanvasLeft = BrickCollection[brick - 1].BrickCanvasLeft;
+                    BrickCollection[brick].BrickCanvasTop = counter * _brickHeight;
+                }
+                else if ((BrickCollection[brick - 1].BrickCanvasLeft + 160) < _windowWidth)//shift to the right  brick % 15 != 0
+                {
+                    //double hahaha = BrickCollection[brick - 1].BrickCanvasLeft + 80;
+                    BrickCollection[brick].BrickCanvasLeft = BrickCollection[brick - 1].BrickCanvasLeft + 80;
+                    BrickCollection[brick].BrickCanvasTop = BrickCollection[brick - 1].BrickCanvasTop;
+                }
+                else if ((BrickCollection[brick - 1].BrickCanvasLeft + 160) > _windowWidth)
+                {
+                    counter++;
+                    BrickCollection[brick].BrickCanvasLeft = 0;
+                    BrickCollection[brick].BrickCanvasTop = counter * _brickHeight;
+                }
             }
 
             UpdateRects();
 
 
         }
-/*        /// <summary>
+/*      /// <summary>
         /// Thread A
         /// </summary>
         /// 
         void ThreadAFunction()
         {
-            try
+            try 
             {
                 while (_isThreadARunning)
                 {
@@ -387,10 +408,6 @@ namespace Homework_3___BrickBreaker
 
         public void CleanUp()
         {
-            /*if (_threadA != null && _threadA.IsAlive)
-                _threadA.Abort();
-            if (_threadB != null && _threadB.IsAlive)
-                _threadB.Abort();*/
             _ballHiResTimer.Delete();
             _paddleHiResTimer.Delete();
         }
@@ -409,7 +426,7 @@ namespace Homework_3___BrickBreaker
             p.Y = (double)y;
             ballCanvasLeft = x - ballWidth / 2;
             ballCanvasTop = y - ballHeight / 2;
-            CheckPush();
+            CheckTouch();
             UpdateRects();
         }
 
@@ -423,7 +440,6 @@ namespace Homework_3___BrickBreaker
 
         public void SetStartPosition()
         {
-
             ballHeight = 50;
             ballWidth = 50;
 
@@ -483,28 +499,10 @@ namespace Homework_3___BrickBreaker
             return InterectSide.NONE;
         }
 
-        public void ToggleBrickColor(String name)
-        {
-            int index = int.Parse(name);
-            if (BrickCollection[index].BrickFill == FillColorBlue)
-            {
-                BrickCollection[index].BrickFill = FillColorRed;
-                return;
-            }
-
-            if (BrickCollection[index].BrickFill == FillColorRed)
-            {
-                BrickCollection[index].BrickFill = FillColorBlue;
-                return;
-            }
-        }
-
-        private void CheckPush()
+        private void CheckTouch()
         {
             for (int brick = 0; brick < _numBricks; brick++)
             {
-                if (BrickCollection[brick].BrickFill != FillColorRed) continue;
-
                 InterectSide whichSide = IntersectsAt(BrickCollection[brick].BrickRectangle, _ballRectangle);
                 switch (whichSide)
                 {
@@ -512,19 +510,23 @@ namespace Homework_3___BrickBreaker
                         break;
 
                     case InterectSide.TOP:
-                        BrickCollection[brick].BrickCanvasTop += _pushMove;
+                        BrickCollection[brick].BrickVisible = Visibility.Collapsed;
+                        _ballYMove = -_ballYMove;
                         break;
 
                     case InterectSide.BOTTOM:
-                        BrickCollection[brick].BrickCanvasTop -= _pushMove;
+                        BrickCollection[brick].BrickVisible = Visibility.Collapsed;
+                        _ballYMove = -_ballYMove;
                         break;
 
                     case InterectSide.LEFT:
-                        BrickCollection[brick].BrickCanvasLeft += _pushMove;
+                        BrickCollection[brick].BrickVisible = Visibility.Collapsed;
+                        _ballXMove = -_ballXMove;
                         break;
 
                     case InterectSide.RIGHT:
-                        BrickCollection[brick].BrickCanvasLeft -= _pushMove;
+                        BrickCollection[brick].BrickVisible = Visibility.Collapsed;
+                        _ballXMove = -_ballXMove;
                         break;
                 }
             }
