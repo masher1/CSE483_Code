@@ -22,7 +22,7 @@ namespace Homework_3___BrickBreaker{
     public partial class MainWindow : Window
     {
         private Model _model;
-        private bool _leftMouseDown = false;
+        //private bool _leftMouseDown = false;
 
         DispatcherTimer dispatcherTimer = new DispatcherTimer();
         Stopwatch stopWatch = new Stopwatch();
@@ -54,10 +54,12 @@ namespace Homework_3___BrickBreaker{
 
         void dt_Tick(object sender, EventArgs e)
         {
+            int seconds = 0;
             if (stopWatch.IsRunning)
             {
                 TimeSpan ts = stopWatch.Elapsed;
-                currentTime = String.Format("{0:0}", ts.Seconds);
+                seconds = (ts.Minutes*60) + ts.Seconds;
+                currentTime = String.Format("{0:0}", seconds);
                 elapsedTimeCounter.Content = currentTime;
             }
         }
@@ -72,8 +74,10 @@ namespace Homework_3___BrickBreaker{
                 _model.MoveBall = !_model.MoveBall;
             else if (e.Key == Key.B)
                 _model.SetStartPosition();
-            else if (e.Key == Key.R)
-                _model.ResetGame();
+            else if (e.Key == Key.R){
+                stopWatch.Reset();
+                elapsedTimeCounter.Content = "0";
+                _model.ResetGame();}
             else if (e.Key == Key.E)
                 this.Close();
         }
@@ -86,42 +90,9 @@ namespace Homework_3___BrickBreaker{
                 _model.MoveRight(false);
         }
 
-        private void resetbtn_Click(object sender, RoutedEventArgs e)
-        {
-            stopWatch.Reset();
-            elapsedTimeCounter.Content = "0";
-        }
-
         private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _model.CleanUp();
-        }
-
-
-        private void BallCanvas_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (_leftMouseDown)
-            {
-                Point p = e.GetPosition(this);
-                _model.ProcessMouseDrag((uint)p.X, (uint)p.Y);
-            }
-        }
-
-        private void BallCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Point p = e.GetPosition(this);
-            _model.ProcessMouseClick((uint)p.X, (uint)p.Y);
-
-        }
-
-        private void TheBall_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            _leftMouseDown = true;
-        }
-
-        private void TheBall_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            _leftMouseDown = false;
         }
     }
 }

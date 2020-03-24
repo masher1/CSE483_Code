@@ -16,21 +16,21 @@
             <Label x:Name="ElapsedTime" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="140" Content="ELAPSED TIME" Canvas.Left="148" Canvas.Top="10" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Segoe UI Black" />
             <Label x:Name="elapsedTimeCounter" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="64" Content="0" Canvas.Left="298" Canvas.Top="10" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Ink Free" FontWeight="Bold" />
             <Label x:Name="Score" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="140" Content="SCORE" Canvas.Left="508" Canvas.Top="10" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Segoe UI Black" />
-            <Label x:Name="scoreCounter" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="66" Content="0" Canvas.Left="658" Canvas.Top="10" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Ink Free" FontWeight="Bold" />
+            <Label x:Name="scoreCounter" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="66" Content="{Binding ScoreCounter}" Canvas.Left="658" Canvas.Top="10" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Ink Free" FontWeight="Bold" />
             <Label x:Name="Keys" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="578" Content="S to Start/Pause | B to Replace Ball | R to Reset Game | E to Exit" Canvas.Left="146" Canvas.Top="51" Background="BlanchedAlmond" Foreground="BurlyWood" FontFamily="Segoe UI Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
         </Canvas>
         <Canvas
         Name="BallCanvas"
         VerticalAlignment="Bottom"
         Height="456"
-        Background="BlanchedAlmond" MouseMove="BallCanvas_MouseMove" MouseRightButtonDown="BallCanvas_MouseRightButtonDown">
+        Background="BlanchedAlmond">
             <ItemsControl x:Name="BrickItems">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:Name="BrickTemplate">
                         <Canvas>
                             <Rectangle
-                            Fill="Blue"
-                            Stroke="BlueViolet"
+                            Fill="{Binding BrickFill}"
+                            Stroke="Red"
                             Height="{Binding BrickHeight}"
                             Width="{Binding BrickWidth}"
                             Canvas.Top="{Binding BrickCanvasTop}"
@@ -56,19 +56,22 @@
                 <Ellipse.Fill>
                     <RadialGradientBrush GradientOrigin="0.75,0.25">
                         <GradientStop Color="Yellow" Offset="0.0" />
-                        <GradientStop Color="Orange" Offset="0.5" />
-                        <GradientStop Color="Red" Offset="1.0" />
+                        <GradientStop Color="Red" Offset="0.5" />
+                        <GradientStop Color="Orange" Offset="1.0" />
                     </RadialGradientBrush>
                 </Ellipse.Fill>
             </Ellipse>
-            <Rectangle
+            <Ellipse
             Canvas.Top ="{Binding paddleCanvasTop}"
             Canvas.Left="{Binding paddleCanvasLeft}"
-            Fill="Black"
+            Fill="#FFBAD7F2"
             Height="{Binding paddleHeight}"
-            Width="{Binding paddleWidth}">
-            </Rectangle>
-            <Label x:Name="Signature" Content="Made by Malkiel Asher" FontSize="30" Foreground="#FF0A014F" FontFamily="Pristina" Margin="0,0,0,0" HorizontalContentAlignment="Right" FontWeight="Thin" ToolTip="Click Me!" Canvas.Left="597" Canvas.Top="410"/>
+            Width="{Binding paddleWidth}" Stroke="Red" StrokeThickness="1.5">
+                <Ellipse.Effect>
+                    <DropShadowEffect Direction="90" BlurRadius="20" Opacity="0.85" Color="Red"/>
+                </Ellipse.Effect>
+            </Ellipse>
+            <Label x:Name="Signature" Content="Made by Malkiel Asher" FontSize="30" Foreground="#FF0A014F" FontFamily="Pristina" Margin="0,0,0,0" HorizontalContentAlignment="Right" FontWeight="Thin" ToolTip="Click Me!" Canvas.Left="597" Canvas.Top="410" Visibility="Hidden"/>
         </Canvas>
     </Grid>
 </Window>
