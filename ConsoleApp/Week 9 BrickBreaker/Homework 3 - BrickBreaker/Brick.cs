@@ -1,4 +1,7 @@
-﻿/********************************************************************
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////
+// CSE483 - BrickBreaker
+// Author - Malkiel Asher
+/********************************************************************
 	created:	2014/02/22
 	created:	22:2:2014   12:28
 	filename: 	R:\CSE483\VCStudio\WindowsProgramming\WPF Samples\BrickBreaker\Brick.cs
@@ -92,17 +95,6 @@ namespace Homework_3___BrickBreaker
             {
                 _brickWidth = value;
                 OnPropertyChanged("BrickWidth");
-            }
-        }
-
-        private  System.Windows.Media.Brush _brickFill;
-        public System.Windows.Media.Brush BrickFill
-        {
-            get { return _brickFill; }
-            set
-            {
-                _brickFill = value;
-                OnPropertyChanged("BrickFill");
             }
         }
 

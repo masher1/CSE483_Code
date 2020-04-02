@@ -1,4 +1,7 @@
-﻿using System;
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////
+// CSE483 - BrickBreaker
+// Author - Malkiel Asher
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;

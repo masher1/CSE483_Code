@@ -1,0 +1,14 @@
+﻿<Window x:Class="UDPSockets.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UDPSockets"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="253.333" Width="460">
+    <Grid>
+        <TextBox x:Name="MessagesText" HorizontalAlignment="Left" Height="107" Margin="20,39,0,0" TextWrapping="Wrap" Text="{Binding Path = MessagesText}" VerticalAlignment="Top" Width="414"/>
+        <TextBlock x:Name="Message" HorizontalAlignment="Left" Margin="20,18,0,0" TextWrapping="Wrap" Text="Message:" VerticalAlignment="Top" Width="76"/>
+
+    </Grid>
+</Window>

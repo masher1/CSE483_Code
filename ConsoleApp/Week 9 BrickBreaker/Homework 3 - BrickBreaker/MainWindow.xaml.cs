@@ -1,4 +1,7 @@
-﻿using System;
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////
+// CSE483 - BrickBreaker
+// Author - Malkiel Asher
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Diagnostics;
+
 
 namespace Homework_3___BrickBreaker{
     /// <summary>
@@ -31,10 +35,7 @@ namespace Homework_3___BrickBreaker{
         public MainWindow()
         {
             InitializeComponent();
-            dispatcherTimer.Tick += new EventHandler(dt_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1);
-            stopWatch.Start();
-            dispatcherTimer.Start();
+            StopWatch();
             // make it so the user cannot resize the window
             this.ResizeMode = ResizeMode.NoResize;
         }
@@ -52,8 +53,17 @@ namespace Homework_3___BrickBreaker{
             BrickItems.ItemsSource = _model.BrickCollection;
         }
 
+        void StopWatch()
+        {
+            dispatcherTimer.Tick += new EventHandler(dt_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1);
+            stopWatch.Start();
+            dispatcherTimer.Start();
+        }
+
         void dt_Tick(object sender, EventArgs e)
         {
+
             int seconds = 0;
             if (stopWatch.IsRunning)
             {
@@ -77,9 +87,18 @@ namespace Homework_3___BrickBreaker{
             else if (e.Key == Key.R){
                 stopWatch.Reset();
                 elapsedTimeCounter.Content = "0";
-                _model.ResetGame();}
+                StopWatch();
+                _model.ResetGame();
+                BrickItems.ItemsSource = _model.BrickCollection;
+            }
             else if (e.Key == Key.E)
                 this.Close();
+        }
+
+        private void Signature_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // Launch my Github Page
+            System.Diagnostics.Process.Start("https://github.com/masher1");
         }
 
         private void KeypadUp(object sender, KeyEventArgs e)

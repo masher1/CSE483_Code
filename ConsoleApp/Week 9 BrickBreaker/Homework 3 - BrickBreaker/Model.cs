@@ -1,4 +1,7 @@
-﻿using System;
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////
+// CSE483 - BrickBreaker
+// Author - Malkiel Asher
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,6 +35,11 @@ using System.ComponentModel;
 
 // Timer.Timer
 using System.Timers;
+
+//Sound Library
+using System.Media;
+using System.IO;
+using Microsoft.Win32;
 
 namespace Homework_3___BrickBreaker
 {
@@ -69,22 +77,19 @@ namespace Homework_3___BrickBreaker
             }
         }
 
-        System.Windows.Media.Brush FillColorBlue;
-
         public ObservableCollection<Brick> BrickCollection;
-        int _numBricks = randomahah();
+        int _numBricks = randomBrickNums();
 
-        private static int randomahah()
+        private static int randomBrickNums()
         {
             Random _random = new Random();
             int _randBrickNums = 0;
-            _randBrickNums = _random.Next(40, 100);
+            _randBrickNums = _random.Next(55, 99);
             return _randBrickNums;
         }
 
         Rectangle[] _brickRectangles = new Rectangle[4];
-        // note that the brick height, number of brick columns and rows
-        // must match our window demensions.
+
         double _brickHeight = 30;
         double _brickWidth = 80;
         
@@ -99,8 +104,10 @@ namespace Homework_3___BrickBreaker
 
         internal void ResetGame()
         {
-            SetStartPosition();
+            CleanUp();
             ScoreCounter = 0;
+            InitModel();
+            SetStartPosition();
         }
 
         private double _ballYMove = 1;
@@ -146,15 +153,14 @@ namespace Homework_3___BrickBreaker
         /// <returns></returns>
         public Model()
         {
-            SolidColorBrush mySolidColorBrushBlue = new SolidColorBrush();
-            // Describes the brush's color using RGB values. 
-            // Each value has a range of 0-255.
-            mySolidColorBrushBlue.Color = System.Windows.Media.Color.FromRgb(186, 215, 242);
-            FillColorBlue = mySolidColorBrushBlue;
         }
 
         public void InitModel()
         {
+            //start playing music at the beginning of the game
+            SoundPlayer GameMusic = new SoundPlayer(@"C:\Users\malki\source\CSE483\CSE483_Code\ConsoleApp\Week 9 BrickBreaker\Homework 3 - BrickBreaker\Properties\GameMusic.wav");
+            GameMusic.PlayLooping();
+            
             // this delegate is needed for the multi media timer defined 
             // in the TimerQueueTimer class.
             _ballTimerCallbackDelegate = new TimerQueueTimer.WaitOrTimerDelegate(BallMMTimerCallback);
@@ -193,7 +199,6 @@ namespace Homework_3___BrickBreaker
             {
                 BrickCollection.Add(new Brick()
                 {
-                    BrickFill = FillColorBlue,
                     BrickHeight = _brickHeight,
                     BrickWidth = _brickWidth,
                     BrickVisible = System.Windows.Visibility.Visible,
@@ -210,9 +215,8 @@ namespace Homework_3___BrickBreaker
                     BrickCollection[brick].BrickCanvasLeft = BrickCollection[brick - 1].BrickCanvasLeft;
                     BrickCollection[brick].BrickCanvasTop = counter * _brickHeight;
                 }
-                else if ((BrickCollection[brick - 1].BrickCanvasLeft + 160) < _windowWidth)//shift to the right  brick % 15 != 0
+                else if ((BrickCollection[brick - 1].BrickCanvasLeft + 160) < _windowWidth)
                 {
-                    //double hahaha = BrickCollection[brick - 1].BrickCanvasLeft + 80;
                     BrickCollection[brick].BrickCanvasLeft = BrickCollection[brick - 1].BrickCanvasLeft + 80;
                     BrickCollection[brick].BrickCanvasTop = BrickCollection[brick - 1].BrickCanvasTop;
                 }
@@ -223,7 +227,6 @@ namespace Homework_3___BrickBreaker
                     BrickCollection[brick].BrickCanvasTop = counter * _brickHeight;
                 }
             }
-
             UpdateRects();
         }
 
@@ -286,6 +289,7 @@ namespace Homework_3___BrickBreaker
 
         private void paddleMMTimerCallback(IntPtr pWhat, bool success)
         {
+            
             // start executing callback. this ensures we are synched correctly
             // if the form is abruptly closed
             // if this function returns false, we should exit the callback immediately
@@ -300,7 +304,7 @@ namespace Homework_3___BrickBreaker
                 paddleCanvasLeft -= 2;
             else if (_movepaddleRight && paddleCanvasLeft < _windowWidth - paddleWidth)
                 paddleCanvasLeft += 2;
-
+               
             _paddleRectangle = new System.Drawing.Rectangle((int)paddleCanvasLeft, (int)paddleCanvasTop, (int)paddleWidth, (int)paddleHeight);
 
             // done in callback. OK to delete timer
@@ -331,7 +335,7 @@ namespace Homework_3___BrickBreaker
             ballCanvasTop = _windowHeight / 1.5;
 
             paddleWidth = 120;
-            paddleHeight = 10;
+            paddleHeight = 20;
 
             _moveBall = false;
 
@@ -365,14 +369,17 @@ namespace Homework_3___BrickBreaker
                 r.Height == 1)
                 return InterectSide.TOP;
 
+            // did we hit the bottom of the brick
             if (ball.Top == r.Top &&
                 r.Height == 1)
                 return InterectSide.BOTTOM;
 
+            // did we hit the right of the brick
             if (ball.Left == r.Left &&
                 r.Width == 1)
                 return InterectSide.RIGHT;
 
+            // did we hit the left of the brick
             if (ball.Left + ball.Width - 1 == r.Left &&
                 r.Width == 1)
                 return InterectSide.LEFT;
