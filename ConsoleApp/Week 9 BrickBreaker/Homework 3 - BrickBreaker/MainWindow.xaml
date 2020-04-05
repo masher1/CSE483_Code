@@ -64,12 +64,12 @@
                             Canvas.Top="{Binding BrickCanvasTop}"
                             Canvas.Left ="{Binding BrickCanvasLeft}"
                             Visibility="{Binding BrickVisible}" >
-                            <Rectangle.Fill>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#FF1768AC" Offset="1"/>
-                                    <GradientStop Color="#FF06BEE1"/>
-                                </LinearGradientBrush>
-                            </Rectangle.Fill>
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF1768AC" Offset="1"/>
+                                        <GradientStop Color="#FF06BEE1"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
                             </Rectangle>
                         </Canvas>
                     </DataTemplate>

@@ -356,6 +356,29 @@ namespace Homework_3___BrickBreaker
             _movepaddleRight = move;
         }
 
+        private String _CongratsText;
+        public String CongratsText
+        {
+            get { return _CongratsText; }
+            set
+            {
+                _CongratsText = value;
+                OnPropertyChanged("WonVisible");
+            }
+        }
+
+        private System.Windows.Visibility _WonVisible;
+        public System.Windows.Visibility WonVisible
+        {
+            get { return _WonVisible; }
+            set
+            {
+                _WonVisible = value;
+                OnPropertyChanged("WonVisible");
+            }
+        }
+
+
         enum InterectSide { NONE, LEFT, RIGHT, TOP, BOTTOM };
         private InterectSide IntersectsAt(Rectangle brick, Rectangle ball)
         {
@@ -403,25 +426,29 @@ namespace Homework_3___BrickBreaker
                             BrickCollection[brick].BrickVisible = Visibility.Collapsed;
                             _ballYMove = -_ballYMove;
                             ScoreCounter += 10;
-                            break;
+                            Console.WriteLine("Hit the Top Side of Brick #" + brick + "/" + _numBricks);
+                            return;
 
                         case InterectSide.BOTTOM:
                             BrickCollection[brick].BrickVisible = Visibility.Collapsed;
                             _ballYMove = -_ballYMove;
                             ScoreCounter += 10;
-                            break;
+                            Console.WriteLine("Hit the Bottom Side of Brick #" + brick + "/" + _numBricks + "\n Visibility is at: " + BrickCollection[brick].BrickVisible);
+                            return;
 
                         case InterectSide.LEFT:
                             BrickCollection[brick].BrickVisible = Visibility.Collapsed;
                             _ballXMove = -_ballXMove;
                             ScoreCounter += 10;
-                            break;
+                            Console.WriteLine("Hit the Left Side of Brick #" + brick + "/" + _numBricks);
+                            return;
 
                         case InterectSide.RIGHT:
                             BrickCollection[brick].BrickVisible = Visibility.Collapsed;
                             _ballXMove = -_ballXMove;
                             ScoreCounter += 10;
-                            break;
+                            Console.WriteLine("Hit the Right Side of Brick #" + brick + "/" + _numBricks);
+                            return;
                     }
                 }
             }
