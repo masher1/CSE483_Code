@@ -21,7 +21,7 @@
                     </LinearGradientBrush>
                 </Label.Background>
             </Label>
-            <Label x:Name="elapsedTimeCounter" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="64" Content="0" Canvas.Left="234" Canvas.Top="9" Background="#FF06BEE1" Foreground="White" FontFamily="Ink Free" FontWeight="Bold" />
+            <Label x:Name="elapsedTimeCounter" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="64" Canvas.Left="234" Canvas.Top="9" Background="#FF06BEE1" Foreground="White" FontFamily="Ink Free" FontWeight="Bold" Content="{Binding Time}" />
             <Label x:Name="Score" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="140" Content="SCORE" Canvas.Left="565" Canvas.Top="9" Foreground="White" FontFamily="Segoe UI Black" >
                 <Label.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

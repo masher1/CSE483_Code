@@ -26,16 +26,10 @@ namespace Homework_3___BrickBreaker{
     public partial class MainWindow : Window
     {
         private Model _model;
-        //private bool _leftMouseDown = false;
-
-        DispatcherTimer dispatcherTimer = new DispatcherTimer();
-        Stopwatch stopWatch = new Stopwatch();
-        string currentTime = string.Empty;
-
+       
         public MainWindow()
         {
             InitializeComponent();
-            StopWatch();
             // make it so the user cannot resize the window
             this.ResizeMode = ResizeMode.NoResize;
         }
@@ -49,29 +43,7 @@ namespace Homework_3___BrickBreaker{
             this.DataContext = _model;
             _model.InitModel();
             _model.SetStartPosition();
-
             BrickItems.ItemsSource = _model.BrickCollection;
-        }
-
-        void StopWatch()
-        {
-            dispatcherTimer.Tick += new EventHandler(dt_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1);
-            stopWatch.Start();
-            dispatcherTimer.Start();
-        }
-
-        void dt_Tick(object sender, EventArgs e)
-        {
-
-            int seconds = 0;
-            if (stopWatch.IsRunning)
-            {
-                TimeSpan ts = stopWatch.Elapsed;
-                seconds = (ts.Minutes*60) + ts.Seconds;
-                currentTime = String.Format("{0:0}", seconds);
-                elapsedTimeCounter.Content = currentTime;
-            }
         }
 
         private void KeypadDown(object sender, KeyEventArgs e)
@@ -80,14 +52,11 @@ namespace Homework_3___BrickBreaker{
                 _model.MoveLeft(true);
             else if (e.Key == Key.Right)
                 _model.MoveRight(true);
-            else if (e.Key == Key.S)//start or pause the game
+            else if (e.Key == Key.S) //start or pause the game
                 _model.MoveBall = !_model.MoveBall;
-            else if (e.Key == Key.B)
+            else if (e.Key == Key.B) //Replace the ball
                 _model.SetStartPosition();
-            else if (e.Key == Key.R){
-                stopWatch.Reset();
-                elapsedTimeCounter.Content = "0";
-                StopWatch();
+            else if (e.Key == Key.R){//Reset the Game
                 _model.ResetGame();
                 BrickItems.ItemsSource = _model.BrickCollection;
             }

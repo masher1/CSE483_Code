@@ -108,6 +108,7 @@ namespace Homework_3___BrickBreaker
             ScoreCounter = 0;
             InitModel();
             SetStartPosition();
+            Time = 0;
         }
 
         private double _ballYMove = 1;
@@ -227,6 +228,7 @@ namespace Homework_3___BrickBreaker
                     BrickCollection[brick].BrickCanvasTop = counter * _brickHeight;
                 }
             }
+            NETTimerTimerStart(true);
             UpdateRects();
         }
 
@@ -316,6 +318,7 @@ namespace Homework_3___BrickBreaker
             _ballHiResTimer.Delete();
             _paddleHiResTimer.Delete();
             ScoreCounter = 0;
+            NETTimerTimerStart(false);
         }
 
         private void UpdateRects()
@@ -453,5 +456,44 @@ namespace Homework_3___BrickBreaker
                 }
             }
         }
+
+        #region .NET Timer Timer
+        bool _netTimerTimerRunning = false;
+        // used for measuring the period of the .NET timer timer
+        uint NETTimerTimerTicks = 0;
+        long NETTimerTimerTotalTime = 0;
+        long NETTimerTimerPreviousTime;
+
+        System.Timers.Timer dotNetTimerTimer;
+
+        private uint _time = 0;
+        public uint Time
+        {
+            get { return _time; }
+            set { _time = value; OnPropertyChanged("Time"); }
+        }
+        public bool NETTimerTimerStart(bool startStop)
+        {
+            if (startStop == true)
+            {
+                dotNetTimerTimer = new System.Timers.Timer(1000); // hard coded 1 second in this timer
+                dotNetTimerTimer.Elapsed += new ElapsedEventHandler(NetTimerTimerHandler);
+                dotNetTimerTimer.Start();
+
+            }
+            else if (_netTimerTimerRunning)
+            {
+                dotNetTimerTimer.Stop();
+            }
+
+            return true;
+        }
+
+        private void NetTimerTimerHandler(object source, ElapsedEventArgs e)
+        {
+            if (MoveBall) Time++;
+        }
+
+        #endregion
     }
 }
