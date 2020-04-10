@@ -90,6 +90,8 @@ namespace Homework_3___BrickBreaker
 
         Rectangle[] _brickRectangles = new Rectangle[4];
 
+        int hitBottom = 0;
+
         double _brickHeight = 30;
         double _brickWidth = 80;
         
@@ -148,6 +150,17 @@ namespace Homework_3___BrickBreaker
             }
         }
 
+        private Visibility _GameOver;
+        public Visibility GameOver
+        {
+            get { return _GameOver; }
+            set
+            {
+                _GameOver = value;
+                OnPropertyChanged("GameOver");
+            }
+        }
+
         /// <summary>
         /// Model constructor
         /// </summary>
@@ -161,7 +174,7 @@ namespace Homework_3___BrickBreaker
             //start playing music at the beginning of the game
             SoundPlayer GameMusic = new SoundPlayer(@"C:\Users\malki\source\CSE483\CSE483_Code\ConsoleApp\Week 9 BrickBreaker\Homework 3 - BrickBreaker\Properties\GameMusic.wav");
             GameMusic.PlayLooping();
-            
+            GameOver = Visibility.Hidden;
             // this delegate is needed for the multi media timer defined 
             // in the TimerQueueTimer class.
             _ballTimerCallbackDelegate = new TimerQueueTimer.WaitOrTimerDelegate(BallMMTimerCallback);
@@ -169,6 +182,7 @@ namespace Homework_3___BrickBreaker
             ScoreCounter = 0;
             // create our multi-media timers
             _ballHiResTimer = new TimerQueueTimer();
+            hitBottom = 0; // restart the counter for number times we have hit the bottom side of the game
             try
             {
                 // create a Multi Media Hi Res timer.
@@ -264,6 +278,13 @@ namespace Homework_3___BrickBreaker
             {
                 // we hit bottom. stop moving the ball
                 _moveBall = false;
+                hitBottom++;
+                if(hitBottom >= 3)
+                {
+                    GameOver = Visibility.Visible;
+                    //ResetGame();
+                    hitBottom = 0;
+                }
             }
 
             // see if we hit the paddle
@@ -358,29 +379,6 @@ namespace Homework_3___BrickBreaker
         {
             _movepaddleRight = move;
         }
-
-        private String _CongratsText;
-        public String CongratsText
-        {
-            get { return _CongratsText; }
-            set
-            {
-                _CongratsText = value;
-                OnPropertyChanged("WonVisible");
-            }
-        }
-
-        private System.Windows.Visibility _WonVisible;
-        public System.Windows.Visibility WonVisible
-        {
-            get { return _WonVisible; }
-            set
-            {
-                _WonVisible = value;
-                OnPropertyChanged("WonVisible");
-            }
-        }
-
 
         enum InterectSide { NONE, LEFT, RIGHT, TOP, BOTTOM };
         private InterectSide IntersectsAt(Rectangle brick, Rectangle ball)

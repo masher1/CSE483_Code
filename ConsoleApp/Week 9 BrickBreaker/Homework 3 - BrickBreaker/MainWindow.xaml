@@ -13,7 +13,7 @@
     <Grid>
         <Canvas Name="ScoreCanvas" Background="#FF1768AC" Height="100" VerticalAlignment="Top">
             <Grid/>
-            <Label x:Name="ElapsedTime" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="140" Content="ELAPSED TIME" Canvas.Left="84" Canvas.Top="9" Foreground="White" FontFamily="Segoe UI Black" >
+            <Label x:Name="ElapsedTime" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="140" Content="ELAPSED TIME" Canvas.Left="94" Canvas.Top="9" Foreground="White" FontFamily="Segoe UI Black" >
                 <Label.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF06BEE1" Offset="0"/>
@@ -21,8 +21,8 @@
                     </LinearGradientBrush>
                 </Label.Background>
             </Label>
-            <Label x:Name="elapsedTimeCounter" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="64" Canvas.Left="234" Canvas.Top="9" Background="#FF06BEE1" Foreground="White" FontFamily="Ink Free" FontWeight="Bold" Content="{Binding Time}" />
-            <Label x:Name="Score" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="140" Content="SCORE" Canvas.Left="565" Canvas.Top="9" Foreground="White" FontFamily="Segoe UI Black" >
+            <Label x:Name="elapsedTimeCounter" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="64" Canvas.Left="244" Canvas.Top="9" Background="#FF06BEE1" Foreground="White" FontFamily="Ink Free" FontWeight="Bold" Content="{Binding Time}" />
+            <Label x:Name="Score" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="140" Content="SCORE" Canvas.Left="575" Canvas.Top="9" Foreground="White" FontFamily="Segoe UI Black" >
                 <Label.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF06BEE1" Offset="0"/>
@@ -30,8 +30,8 @@
                     </LinearGradientBrush>
                 </Label.Background>
             </Label>
-            <Label x:Name="scoreCounter" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="66" Content="{Binding ScoreCounter}" Canvas.Left="715" Canvas.Top="9" Background="#FF06BEE1" Foreground="White" FontFamily="Ink Free" FontWeight="Bold" />
-            <Label x:Name="Signature" Content="Made by Malkiel Asher" FontWeight="Thin" MouseDown="Signature_MouseDown" ToolTip="Click Me!" Canvas.Left="326" Canvas.Top="9" FontSize="18" Foreground="White" FontFamily="Segoe UI Black" Height="33">
+            <Label x:Name="scoreCounter" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="66" Content="{Binding ScoreCounter}" Canvas.Left="725" Canvas.Top="9" Background="#FF06BEE1" Foreground="White" FontFamily="Ink Free" FontWeight="Bold" />
+            <Label x:Name="Signature" Content="Made by Malkiel Asher" FontWeight="Thin" MouseDown="Signature_MouseDown" ToolTip="Click Me!" Canvas.Left="336" Canvas.Top="9" FontSize="18" Foreground="White" FontFamily="Segoe UI Black" Height="33">
                 <Label.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF06BEE1" Offset="1"/>
@@ -39,7 +39,23 @@
                     </LinearGradientBrush>
                 </Label.Background>
             </Label>
-            <Label x:Name="Keys" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="578" Content="S to Start/Pause | B to Replace Ball | R to Reset Game | E to Exit" Canvas.Left="146" Canvas.Top="51" Foreground="White" FontFamily="Segoe UI Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+            <Label x:Name="GameOver" FontSize="18" Height="33" Width="131" Content="GAME OVER" Canvas.Left="20" Canvas.Top="51" Foreground="Red" FontFamily="Segoe UI Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Visibility="{Binding GameOver}">
+                <Label.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF1768AC" Offset="1"/>
+                        <GradientStop Color="#FF06BEE1"/>
+                    </LinearGradientBrush>
+                </Label.Background>
+            </Label>
+            <Label x:Name="Keys" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="578" Content="S to Start/Pause | B to Replace Ball | R to Reset Game | E to Exit" Canvas.Left="156" Canvas.Top="51" Foreground="White" FontFamily="Segoe UI Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                <Label.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF1768AC" Offset="1"/>
+                        <GradientStop Color="#FF06BEE1"/>
+                    </LinearGradientBrush>
+                </Label.Background>
+            </Label>
+            <Label x:Name="GameOverCopy" FontSize="18" Height="33" Width="131" Content="GAME OVER" Canvas.Left="739" Canvas.Top="51" Foreground="Red" FontFamily="Segoe UI Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Visibility="{Binding GameOver}">
                 <Label.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF1768AC" Offset="1"/>
@@ -53,6 +69,7 @@
         VerticalAlignment="Bottom"
         Height="456"
         Background="#FF06BEE1">
+
             <ItemsControl x:Name="BrickItems">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:Name="BrickTemplate">
@@ -104,6 +121,15 @@
                     <DropShadowEffect Direction="90" BlurRadius="20" Opacity="0.85" Color="#B8BEDD"/>
                 </Ellipse.Effect>
             </Ellipse>
+            <Label x:Name="GameOverResetRequestText" FontSize="55" Height="366" Width="878" Content="PRESS 'R' TO RESET THE GAME" Foreground="Red" FontFamily="Segoe UI Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Visibility="{Binding GameOver}" Canvas.Left="2">
+                <Label.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="#FF1768AC" Offset="0.5"/>
+                        <GradientStop Color="#FF06BEE1"/>
+                        <GradientStop Color="#FF06BEE1" Offset="1"/>
+                    </LinearGradientBrush>
+                </Label.Background>
+            </Label>
         </Canvas>
     </Grid>
 </Window>
