@@ -40,6 +40,7 @@ using System.Timers;
 using System.Media;
 using System.IO;
 using Microsoft.Win32;
+using Homework_3___BrickBreaker.Properties;
 
 namespace Homework_3___BrickBreaker
 {
@@ -171,9 +172,6 @@ namespace Homework_3___BrickBreaker
 
         public void InitModel()
         {
-            //start playing music at the beginning of the game
-            SoundPlayer GameMusic = new SoundPlayer(@"C:\Users\malki\source\CSE483\CSE483_Code\ConsoleApp\Week 9 BrickBreaker\Homework 3 - BrickBreaker\Properties\GameMusic.wav");
-            GameMusic.PlayLooping();
             GameOver = Visibility.Hidden;
             // this delegate is needed for the multi media timer defined 
             // in the TimerQueueTimer class.
@@ -242,12 +240,19 @@ namespace Homework_3___BrickBreaker
                     BrickCollection[brick].BrickCanvasTop = counter * _brickHeight;
                 }
             }
-            NETTimerTimerStart(true);
+            NETTimerStart(true);
             UpdateRects();
         }
 
         private void BallMMTimerCallback(IntPtr pWhat, bool success)
         {
+            var GameMusics = Resources.PaddleFX;
+            SoundPlayer paddle = new SoundPlayer(GameMusics);
+            GameMusics = Resources.WallFX;
+            SoundPlayer wall = new SoundPlayer(GameMusics);
+            GameMusics = Resources.FailedFX;
+            SoundPlayer failed = new SoundPlayer(GameMusics);
+
             if (!_moveBall)
                 return;
 
@@ -266,14 +271,16 @@ namespace Homework_3___BrickBreaker
 
             // check to see if ball has it the left or right side of the drawing element
             if ((ballCanvasLeft + ballWidth >= _windowWidth) ||
-                (ballCanvasLeft <= 0))
+                (ballCanvasLeft <= 0)) {
                 _ballXMove = -_ballXMove;
+                wall.Play();
+            }
 
-
-            // check to see if ball has it the top of the drawing element
+            // check to see if ball has hit the top of the drawing element
             if (ballCanvasTop <= 0)
                 _ballYMove = -_ballYMove;
 
+            // check to see if ball has hit the bottom of the drawing element
             if (ballCanvasTop + ballWidth >= _windowHeight)
             {
                 // we hit bottom. stop moving the ball
@@ -281,8 +288,8 @@ namespace Homework_3___BrickBreaker
                 hitBottom++;
                 if(hitBottom >= 3)
                 {
+                    failed.Play();
                     GameOver = Visibility.Visible;
-                    //ResetGame();
                     hitBottom = 0;
                 }
             }
@@ -291,6 +298,7 @@ namespace Homework_3___BrickBreaker
             _ballRectangle = new System.Drawing.Rectangle((int)ballCanvasLeft, (int)ballCanvasTop, (int)ballWidth, (int)ballHeight);
             if (_ballRectangle.IntersectsWith(_paddleRectangle))
             {
+                paddle.Play();
                 // hit paddle. reverse direction in Y direction
                 _ballYMove = -_ballYMove;
 
@@ -338,8 +346,7 @@ namespace Homework_3___BrickBreaker
         {
             _ballHiResTimer.Delete();
             _paddleHiResTimer.Delete();
-            ScoreCounter = 0;
-            NETTimerTimerStart(false);
+            NETTimerStart(false);
         }
 
         private void UpdateRects()
@@ -413,6 +420,10 @@ namespace Homework_3___BrickBreaker
 
         private void CheckTouch()
         {
+            //start playing music at the beginning of the game
+            var GameMusics = Resources.BrickFX;
+            SoundPlayer GameMusic = new SoundPlayer(GameMusics);
+
             for (int brick = 0; brick < _numBricks; brick++)
             {
                 if (BrickCollection[brick].BrickVisible != Visibility.Collapsed)
@@ -427,6 +438,7 @@ namespace Homework_3___BrickBreaker
                             BrickCollection[brick].BrickVisible = Visibility.Collapsed;
                             _ballYMove = -_ballYMove;
                             ScoreCounter += 10;
+                            GameMusic.Play();
                             Console.WriteLine("Hit the Top Side of Brick #" + brick + "/" + _numBricks);
                             return;
 
@@ -434,13 +446,15 @@ namespace Homework_3___BrickBreaker
                             BrickCollection[brick].BrickVisible = Visibility.Collapsed;
                             _ballYMove = -_ballYMove;
                             ScoreCounter += 10;
-                            Console.WriteLine("Hit the Bottom Side of Brick #" + brick + "/" + _numBricks + "\n Visibility is at: " + BrickCollection[brick].BrickVisible);
+                            GameMusic.Play();
+                            Console.WriteLine("Hit the Bottom Side of Brick #" + brick + "/" + _numBricks);
                             return;
 
                         case InterectSide.LEFT:
                             BrickCollection[brick].BrickVisible = Visibility.Collapsed;
                             _ballXMove = -_ballXMove;
                             ScoreCounter += 10;
+                            GameMusic.Play();
                             Console.WriteLine("Hit the Left Side of Brick #" + brick + "/" + _numBricks);
                             return;
 
@@ -448,6 +462,7 @@ namespace Homework_3___BrickBreaker
                             BrickCollection[brick].BrickVisible = Visibility.Collapsed;
                             _ballXMove = -_ballXMove;
                             ScoreCounter += 10;
+                            GameMusic.Play();
                             Console.WriteLine("Hit the Right Side of Brick #" + brick + "/" + _numBricks);
                             return;
                     }
@@ -456,13 +471,9 @@ namespace Homework_3___BrickBreaker
         }
 
         #region .NET Timer Timer
-        bool _netTimerTimerRunning = false;
-        // used for measuring the period of the .NET timer timer
-        uint NETTimerTimerTicks = 0;
-        long NETTimerTimerTotalTime = 0;
-        long NETTimerTimerPreviousTime;
+        bool _netTimerRunning = false;
 
-        System.Timers.Timer dotNetTimerTimer;
+        System.Timers.Timer dotNetTimer;
 
         private uint _time = 0;
         public uint Time
@@ -470,24 +481,24 @@ namespace Homework_3___BrickBreaker
             get { return _time; }
             set { _time = value; OnPropertyChanged("Time"); }
         }
-        public bool NETTimerTimerStart(bool startStop)
+        public bool NETTimerStart(bool startStop)
         {
             if (startStop == true)
             {
-                dotNetTimerTimer = new System.Timers.Timer(1000); // hard coded 1 second in this timer
-                dotNetTimerTimer.Elapsed += new ElapsedEventHandler(NetTimerTimerHandler);
-                dotNetTimerTimer.Start();
+                dotNetTimer = new System.Timers.Timer(1000); 
+                dotNetTimer.Elapsed += new ElapsedEventHandler(NetTimerHandler);
+                dotNetTimer.Start();
 
             }
-            else if (_netTimerTimerRunning)
+            else if (_netTimerRunning)
             {
-                dotNetTimerTimer.Stop();
+                dotNetTimer.Stop();
             }
 
             return true;
         }
 
-        private void NetTimerTimerHandler(object source, ElapsedEventArgs e)
+        private void NetTimerHandler(object source, ElapsedEventArgs e)
         {
             if (MoveBall) Time++;
         }
