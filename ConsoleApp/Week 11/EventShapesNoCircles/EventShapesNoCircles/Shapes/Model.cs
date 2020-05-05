@@ -79,6 +79,7 @@ namespace EventShapes
         public ObservableCollection<MyShape> CircleCollection;
         public ObservableCollection<MyShape> TriangleCollection;
 
+
         // Event delegates and handlers
         public delegate void ChangeColorEventHandler(object sender, ChangeColorEventArgs e);
         public event ChangeColorEventHandler ChangeRectangleColorEvent;
@@ -90,11 +91,14 @@ namespace EventShapes
         public ChangeColorEventHandler CircleColorHandler;
         public ChangeColorEventHandler TriangleColorHandler;
 
+        //private PointCollection _triangle = new PointCollection { new Point(10, 50), new Point(60, 0), new Point(60, 100) };
+
         public void InitModel(UInt32 height, UInt32 width)
         {
+
             _drawingAreaHeight = height;
             _drawingAreaWidth = width;
-
+            //Triangle2 = new PointCollection { new Point(10, 50), new Point(60, 0), new Point(60, 100) };
             // create handlers for color change events
             RectangleColorHandler = ChangeRectangleColorEvent;
             SquareColorHandler = ChangeSquareColorEvent;
@@ -145,9 +149,12 @@ namespace EventShapes
                     CircleCollection.Add(renderShape);
                     break;
                 case SelectedShape.Triangle:
-                    renderShape.Height = TriangleWidth;
-                    renderShape.Width = TriangleHeight;
+                    renderShape.Height = TriangleHeight;
+                    renderShape.Width = TriangleWidth;
                     renderShape.Name = "Triangle";
+                    renderShape.CanvasLeft -= TriangleWidth / 2;
+                    renderShape.CanvasTop -= TriangleHeight / 2;
+                    renderShape.Calculate_triangle();
                     TriangleColorHandler += new ChangeColorEventHandler(renderShape.ChangeColorHandler);
                     TriangleCollection.Add(renderShape);
                     break;
@@ -161,15 +168,19 @@ namespace EventShapes
             }
         }
 
+
+
         public void ClearAllShapes()
         {
             RectCollection.Clear();
             SquareCollection.Clear();
             CircleCollection.Clear();
+            TriangleCollection.Clear();
         }
 
         public void ChangeShapeColor()
         {
+
             // send events for color changes
             // NOTE: we MUST check for null handlers. If no entity has registered
             // to recieve an event, these will be null
@@ -208,15 +219,18 @@ namespace EventShapes
             System.Windows.Controls.Canvas.SetTop((Rectangle)sender, Y - (double)(SquareWidth / 2));
             System.Windows.Controls.Canvas.SetLeft((Rectangle)sender, X - (double)(SquareWidth / 2));
         }
+
         public void CircleMoveHandler(object sender, double X, double Y)
         {
             System.Windows.Controls.Canvas.SetTop((Ellipse)sender, Y - (double)(CircleRadious / 2));
             System.Windows.Controls.Canvas.SetLeft((Ellipse)sender, X - (double)(CircleRadious / 2));
         }
+
         public void TriangleMoveHandler(object sender, double X, double Y)
         {
             System.Windows.Controls.Canvas.SetTop((Polygon)sender, Y - (double)(TriangleHeight / 2));
             System.Windows.Controls.Canvas.SetLeft((Polygon)sender, X - (double)(TriangleWidth / 2));
+
         }
     }
 }

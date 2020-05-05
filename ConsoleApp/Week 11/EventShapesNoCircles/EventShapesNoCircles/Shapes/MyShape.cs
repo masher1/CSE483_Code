@@ -9,7 +9,8 @@ using System.ComponentModel;
 
 // Brush
 using System.Windows.Media;
-using System.Collections.ObjectModel;
+
+
 
 namespace EventShapes
 {
@@ -80,7 +81,31 @@ namespace EventShapes
             }
         }
 
-        //public PointCollection Triangle = new PointCollection { new Point(1, 1), new Point(2, 2), new Point(3, 3) };
+        private PointCollection _triangle;
+        public PointCollection Tri_dimention
+        {
+            get { return _triangle; }
+            set
+            {
+                _triangle = value;
+                OnPropertyChanged("Tri_dimention");
+            }
+        }
+
+        public void Calculate_triangle()
+        {
+            System.Windows.Point Point1 = new System.Windows.Point(Width / 2, 0);
+            System.Windows.Point Point2 = new System.Windows.Point(0, Height);
+            System.Windows.Point Point3 = new System.Windows.Point(Width, Height);
+
+            PointCollection myPointCollection = new PointCollection
+                        {
+                            Point1,
+                            Point2,
+                            Point3
+                        };
+            Tri_dimention = myPointCollection;
+        }
 
         public string Name { get; set; }
 

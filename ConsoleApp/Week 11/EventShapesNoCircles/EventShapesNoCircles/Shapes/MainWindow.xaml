@@ -11,7 +11,6 @@
             <Button  Width="100" Name="CreateTriangle" Click="CreateTriangle_Click" Content="Triangle" Height="26" VerticalAlignment="Top"/>
             <ToggleButton  Width="100" x:Name="ClearCanvas" Click="ClearCanvas_Click" Content="Clear" Height="26" VerticalAlignment="Top" />
             <ToggleButton  Width="100" x:Name="ColorSelect" Click="ColorSelect_Click" Content="Shape Color" Height="26" VerticalAlignment="Top" />
-            <!--<xctk:ColorPicker Name="ClrPcker_Background" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged"></xctk:ColorPicker>-->
         </StackPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="2,5,10,5">
             <Label Margin="3" VerticalContentAlignment="Center">Color:</Label>
@@ -69,17 +68,16 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <ItemsControl Name="MyTriangles">
+            <ItemsControl Name="MyTriangle">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:Name="TriangleTemplate">
                         <Canvas VerticalAlignment="Top">
-                            <Polygon Points="10,110 60,10 110,110" 
+                            <Polygon
                             Fill="{Binding Fill}"
                             Stroke="Black"
-                            Height="{Binding Height}"
-                            Width="{Binding Width}"
+                            Points="{Binding Tri_dimention}"
                             Canvas.Top="{Binding CanvasTop}"
-                            Canvas.Left ="{Binding CanvasLeft}" 
+                            Canvas.Left ="{Binding CanvasLeft}"
                             MouseMove="Triangle_MouseMove">
                             </Polygon>
                         </Canvas>
