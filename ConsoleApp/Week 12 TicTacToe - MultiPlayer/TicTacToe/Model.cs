@@ -233,7 +233,7 @@ namespace TicTacToe
             {
                 if (!(TileCollection[gameData.data1].TileFlag))
                 {
-                    if (counter%2 == 0 && _localPort == 19000)
+                    if (counter%2 == 0 && _localPort % 2 == 1)
                     {
                         TileCollection[gameData.data1].TileFlag = true;
                         _buttonPresses[gameData.data1]++;
@@ -245,7 +245,7 @@ namespace TicTacToe
 
                     }
 
-                    if (counter%2 == 1 && _localPort == 19001)
+                    if (counter%2 == 1 && _localPort % 2 == 0)
                     {
                         TileCollection[gameData.data1].TileFlag = true;
                         _buttonPresses[gameData.data1]++;
@@ -318,7 +318,7 @@ namespace TicTacToe
                     // update view data through our bound properties
                     if (!won && !TileCollection[gameData.data1].TileFlag)
                     {
-                        if (_remotePort == 19001 && counter % 2 == 1)
+                        if (_remotePort%2 == 0 && counter % 2 == 1)
                         {
 
                             TileCollection[gameData.data1].TileLabel = "X";
@@ -330,7 +330,7 @@ namespace TicTacToe
                             counter++;
                             WinnerSelection(TileCollection);
                         }
-                        else if (_remotePort == 19000 && counter % 2 == 0)
+                        else if (_remotePort%2 == 1 && counter % 2 == 0)
                         {
                             TileCollection[gameData.data1].TileLabel = "O";
                             TileCollection[gameData.data1].TileBrush = Brushes.Red;
@@ -449,7 +449,7 @@ namespace TicTacToe
 
 
             // got this far, so we received a response from player 2
-            StatusText = "Game has started. Player 1 (O, on port 19000) goes first.";
+            StatusText = "Game has started. Player 1 (O) goes first.";
             SendEnabled = true;
         }
 
